@@ -5,10 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/standard",
+    "build": "./node_modules/.bin/webpack",
     "commit": "git-cz"
   },
   "pre-commit": {
-    "run": ["test"]
+    "run": [
+      "test"
+    ]
   },
   "czConfig": {
     "path": "node_modules/cz-conventional-changelog"
@@ -31,8 +34,11 @@
   },
   "homepage": "https://github.com/wizbii/ng-toolbox#readme",
   "devDependencies": {
+    "babel-core": "^5.8.25",
+    "babel-loader": "^5.3.2",
     "commitizen": "^2.0.2",
     "cz-conventional-changelog": "^1.0.1",
-    "pre-commit": "^1.1.1"
+    "pre-commit": "^1.1.1",
+    "webpack": "^1.12.2"
   }
 }
