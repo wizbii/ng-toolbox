@@ -4,7 +4,11 @@
   "description": "Set of Angular utilities",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "commit": "git-cz"
+  },
+  "czConfig": {
+    "path": "node_modules/cz-conventional-changelog"
   },
   "repository": {
     "type": "git",
@@ -22,5 +26,9 @@
   "bugs": {
     "url": "https://github.com/wizbii/ng-toolbox/issues"
   },
-  "homepage": "https://github.com/wizbii/ng-toolbox#readme"
+  "homepage": "https://github.com/wizbii/ng-toolbox#readme",
+  "devDependencies": {
+    "commitizen": "^2.0.2",
+    "cz-conventional-changelog": "^1.0.1"
+  }
 }
