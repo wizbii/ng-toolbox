@@ -2,6 +2,12 @@
 
 A set of Angular utilities we use at Wizbii.
 
+## Download
+
+* Download via bower: `bower install ng-toolbox`
+* Download via npm: `npm install ng-toolbox`
+* [Direct download](https://github.com/wizbii/ng-toolbox/releases)
+
 ## Installation
 
 1. `npm install`
