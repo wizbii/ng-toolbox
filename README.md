@@ -8,6 +8,24 @@ A set of Angular utilities we use at Wizbii.
 * Download via npm: `npm install ng-toolbox`
 * [Direct download](https://github.com/wizbii/ng-toolbox/releases)
 
+## Change Log
+
+### 0.1.0 - Unreleased
+
+* [ ] Add documentation on how to publish a new release
+  * [ ] GitHub and git tags
+  * [ ] npm
+  * [ ] bower
+  * [ ] Add a note on semver usage
+
+*Some more stuff incoming...*
+
+### 0.0.0 - 2015-10-17
+
+* Setup repository and workflow
+* Publish to npm and bower
+* Add truncate filter
+
 ## Installation
 
 1. `npm install`
