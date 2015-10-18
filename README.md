@@ -70,4 +70,4 @@ npm publish
 ```
 
 Note: you'll have to be part of Wizbii's organisation to publish new releases to npm as it's the author.
-Run `npm add user wizbii` and then fill in the credentials ;)
+Run `npm adduser wizbii` and then fill in the credentials ;)
