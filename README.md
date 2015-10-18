@@ -10,17 +10,18 @@ A set of Angular utilities we use at Wizbii.
 
 ## Change Log
 
-### 0.1.0 - Unreleased
+### 0.2.0 - Unreleased
 
 * [ ] Add tracker directive
-* [x] Add Loader class
-* [x] Add documentation on how to publish a new release
-  * [x] GitHub and git tags
-  * [x] npm
-  * [x] bower
-  * [x] Add a note on semver usage
 
-*Some more stuff incoming...*
+### 0.1.0 - 2015-10-18
+
+* Add Loader class
+* Add documentation on how to publish a new release
+  * GitHub and git tags
+  * npm
+  * bower
+  * Add a note on semver usage
 
 ### 0.0.0 - 2015-10-17
 
@@ -57,13 +58,8 @@ Please make sure to follow the [semantic versioning](http://semver.org/) convent
 
 1. Update the README.md change log (add the release date, remove checkboxes)
 2. Update the version number in the `package.json`
-
-Tag the version so it creates a release on GitHub:
-
-```
-git tag <VERSION NUMBER>
-git push --tags
-```
+3. Commit and push the changes: `git commit` then `git push`
+4. Tag the version so it creates a release on GitHub: `git tag <VERSION NUMBER>` then `git push --tags`
 
 The new release should now appear in the [releases](https://github.com/wizbii/ng-toolbox/releases).
 There's nothing special to do for bower as its going to rely on the GitHub's repository version.
@@ -73,4 +69,5 @@ However, we need to publish it to npm:
 npm publish
 ```
 
-Done!
+Note: you'll have to be part of Wizbii's organisation to publish new releases to npm as it's the author.
+Run `npm add user wizbii` and then fill in the credentials ;)
