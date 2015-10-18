@@ -2,12 +2,12 @@
 
 import '../src/ng-toolbox'
 
-describe('ng-toolbox has classes that', function () {
+describe('ng-toolbox has', function () {
   beforeEach(function () {
     angular.mock.module('ng-toolbox')
   })
 
-  describe('has a Loader class that', function () {
+  describe('a Loader class that', function () {
     let loader
 
     beforeEach(function () {
@@ -33,6 +33,7 @@ describe('ng-toolbox has classes that', function () {
     it('has a isLoading method that returns true if one of its state is loading', function () {
       expect(loader.isLoading()).toBe(false)
       loader.setLoading('submission', true)
+      loader.setLoading('pagination', false)
       expect(loader.isLoading()).toBe(true)
     })
   })
