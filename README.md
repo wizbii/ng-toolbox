@@ -12,11 +12,13 @@ A set of Angular utilities we use at Wizbii.
 
 ### 0.1.0 - Unreleased
 
-* [ ] Add documentation on how to publish a new release
-  * [ ] GitHub and git tags
-  * [ ] npm
-  * [ ] bower
-  * [ ] Add a note on semver usage
+* [ ] Add tracker directive
+* [x] Add Loader class
+* [x] Add documentation on how to publish a new release
+  * [x] GitHub and git tags
+  * [x] npm
+  * [x] bower
+  * [x] Add a note on semver usage
 
 *Some more stuff incoming...*
 
@@ -48,3 +50,27 @@ To do so, just `git add` the files you want to commit and `npm run commit`.
 Note that there is a pre-commit git hook that runs the `test` task when calling `git commit`.
 Also, `npm run commit` is going to run the tests twice: once before the assistant and one more time afterwards, when actually committing.
 While making the process slightly longer, it'll prevent you from filling the whole assistant when tests are not passing.
+
+### Releases
+
+Please make sure to follow the [semantic versioning](http://semver.org/) convention when bumping version.
+
+1. Update the README.md change log (add the release date, remove checkboxes)
+2. Update the version number in the `package.json`
+
+Tag the version so it creates a release on GitHub:
+
+```
+git tag <VERSION NUMBER>
+git push --tags
+```
+
+The new release should now appear in the [releases](https://github.com/wizbii/ng-toolbox/releases).
+There's nothing special to do for bower as its going to rely on the GitHub's repository version.
+However, we need to publish it to npm:
+
+```
+npm publish
+```
+
+Done!
