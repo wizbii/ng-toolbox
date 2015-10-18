@@ -1,10 +1,8 @@
-/* global describe, it, expect, beforeEach, inject */
+/* global angular, describe, it, expect, beforeEach, inject */
 
-import angular from 'angular'
-import 'angular-mocks'
 import '../src/ng-toolbox'
 
-describe('ng-toolbox', function () {
+describe('ng-toolbox has filters that', function () {
   let $filter
 
   beforeEach(function () {
@@ -15,7 +13,7 @@ describe('ng-toolbox', function () {
     })
   })
 
-  describe('has a truncate filter that', function () {
+  describe('truncate strings and', function () {
     let truncate
 
     beforeEach(function () {
@@ -48,6 +46,36 @@ describe('ng-toolbox', function () {
 
     it('supports using a custom trailing ellipsis', function () {
       expect(truncate('Hey guys, what\'s up?', 14, ' (...)')).toBe('Hey (...)')
+    })
+  })
+
+  describe('has a Loader class that', function () {
+    let loader
+
+    beforeEach(function () {
+      inject(function (Loader) {
+        loader = new Loader()
+      })
+    })
+
+    it('handles multiple loading states', function () {
+      loader.setLoading('submission', true)
+      loader.setLoading('pagination', true)
+
+      expect(loader.isLoading('submission')).toBe(true)
+      expect(loader.isLoading('pagination')).toBe(true)
+    })
+
+    it('has a isLoading method that returns the loading state for a given prop name', function () {
+      expect(loader.isLoading('whatever')).toBe(false)
+      loader.setLoading('whatever', true)
+      expect(loader.isLoading('whatever')).toBe(true)
+    })
+
+    it('has a isLoading method that returns true if one of its state is loading', function () {
+      expect(loader.isLoading()).toBe(false)
+      loader.setLoading('submission', true)
+      expect(loader.isLoading()).toBe(true)
     })
   })
 })
