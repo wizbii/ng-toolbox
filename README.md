@@ -59,10 +59,9 @@ Please make sure to follow the [semantic versioning](http://semver.org/) convent
 1. Update the README.md change log (add the release date, remove checkboxes)
 2. Update the version number in the `package.json`
 3. Commit and push the changes: `git commit` then `git push`
-4. Tag the version so it creates a release on GitHub: `git tag <VERSION NUMBER>` then `git push --tags`
+4. Tag the version and push it to GitHub: `git tag <VERSION NUMBER>` then `git push --tags`
 
-The new release should now appear in the [releases](https://github.com/wizbii/ng-toolbox/releases).
-There's nothing special to do for bower as its going to rely on the GitHub's repository version.
+GitHub and Bower rely on the git repository tags so there's nothing special to do for them.
 However, we need to publish it to npm:
 
 ```
