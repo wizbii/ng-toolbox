@@ -1,11 +1,11 @@
 # ng-toolbox
 
-A set of Angular utilities we use at Wizbii.
+Set of Angular utilities used at [Wizbii](https://www.wizbii.com/).
 
 ## Download
 
-* Download via bower: `bower install ng-toolbox`
-* Download via npm: `npm install ng-toolbox`
+* bower: `bower install ng-toolbox`
+* npm: `npm install ng-toolbox`
 * [Direct download](https://github.com/wizbii/ng-toolbox/releases)
 
 ## Change Log
@@ -57,17 +57,9 @@ While making the process slightly longer, it'll prevent you from filling the who
 
 Please make sure to follow the [semantic versioning](http://semver.org/) convention when bumping version.
 
-1. Update the README.md change log (add the release date, remove checkboxes)
+1. Update the change log in the README.md (add the release date, remove checkboxes)
 2. Update the version number in the `package.json`
-3. Commit and push the changes: `git commit` then `git push`
-4. Tag the version and push it to GitHub: `git tag <VERSION NUMBER>` then `git push --tags`
+3. Use the release script like so: `bash release.sh`
 
-GitHub and Bower rely on the git repository tags so there's nothing special to do for them.
-However, we need to publish it to npm:
-
-```
-npm publish
-```
-
-Note: you'll have to be part of Wizbii's organisation to publish new releases to npm as it's the author.
+Note: you'll have to be part of Wizbii's organization to publish new releases to npm.
 Run `npm adduser wizbii` and then fill in the credentials ;)

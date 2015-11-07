@@ -1,7 +1,7 @@
 {
   "name": "ng-toolbox",
   "version": "0.1.0",
-  "description": "A set of Angular utilities we use at Wizbii.",
+  "description": "Set of Angular utilities used at Wizbii.",
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/standard && ./node_modules/.bin/karma start --single-run",
