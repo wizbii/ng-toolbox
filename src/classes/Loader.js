@@ -20,6 +20,10 @@ export default function () {
 
       return this.loading[prop] === true
     }
+
+    isntLoading (prop) {
+      return !this.isLoading(prop)
+    }
   }
 
   return Loader

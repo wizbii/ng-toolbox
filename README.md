@@ -13,6 +13,7 @@ A set of Angular utilities we use at Wizbii.
 ### 0.2.0 - Unreleased
 
 * [ ] Add tracker directive
+* [x] Loader: add `isntLoading` to check that a state isn't loading
 
 ### 0.1.0 - 2015-10-18
 
