@@ -1,7 +1,7 @@
 /* global angular */
 
 import truncate from './filters/truncate'
-import Loader from './classes/Loader'
+import Loader from './factories/Loader'
 
 export default
   angular

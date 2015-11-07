@@ -7,12 +7,12 @@ describe('ng-toolbox has', function () {
     angular.mock.module('ng-toolbox')
   })
 
-  describe('a Loader class that', function () {
+  describe('a Loader factory that', function () {
     let loader
 
     beforeEach(function () {
       inject(function (Loader) {
-        loader = new Loader()
+        loader = Loader()
       })
     })
 
