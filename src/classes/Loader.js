@@ -1,4 +1,4 @@
-export default function () {
+function LoaderFactory () {
   class Loader {
     constructor () {
       this.loading = {}
@@ -28,3 +28,5 @@ export default function () {
 
   return Loader
 }
+
+export default LoaderFactory

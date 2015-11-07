@@ -1,6 +1,6 @@
 /* global angular */
 
-export default function truncate () {
+function truncate () {
   return function (str, maxLength, ellipsis = '...') {
     if (!angular.isString(str) || str.length <= maxLength || str.indexOf(' ') === -1) {
       return str
@@ -16,3 +16,5 @@ export default function truncate () {
     return str + ellipsis
   }
 }
+
+export default truncate

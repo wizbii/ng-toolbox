@@ -6,5 +6,5 @@ import Loader from './classes/Loader'
 export default
   angular
     .module('ng-toolbox', [])
-    .filter('truncate', truncate)
-    .factory('Loader', Loader)
+    .filter({ truncate })
+    .factory({ Loader })
