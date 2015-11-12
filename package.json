@@ -7,6 +7,7 @@
     "lint": "./node_modules/.bin/standard",
     "test": "./node_modules/.bin/standard && ./node_modules/.bin/karma start --single-run",
     "build": "./node_modules/.bin/webpack",
+    "dev": "./node_modules/.bin/webpack --progress --colors --watch",
     "commit": "npm run test && git-cz"
   },
   "pre-commit": {
