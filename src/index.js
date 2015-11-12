@@ -1,13 +1,13 @@
 /* global angular */
 
 import './components/dropdown'
-import truncate from './filters/truncate'
-import Loader from './factories/Loader'
-import ngToolboxPopup from './directives/ngToolboxPopup.js'
+import ngtbTruncate from './filters/truncate'
+import ngtbLoader from './factories/Loader'
+import ngtbPopup from './directives/popup'
 
 export default
   angular
     .module('ng-toolbox', ['ng-toolbox-dropdown'])
-    .filter({ truncate })
-    .factory({ Loader })
-    .directive({ ngToolboxPopup })
+    .filter({ ngtbTruncate })
+    .factory({ ngtbLoader })
+    .directive({ ngtbPopup })

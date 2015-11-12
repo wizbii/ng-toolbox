@@ -11,8 +11,8 @@ describe('ng-toolbox has', function () {
     let loader
 
     beforeEach(function () {
-      inject(function (Loader) {
-        loader = Loader()
+      inject(function (ngtbLoader) {
+        loader = ngtbLoader()
       })
     })
 

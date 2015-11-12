@@ -1,6 +1,6 @@
 /* global _ */
 
-function ngToolboxPopup () {
+function popup () {
   const DEFAULT_WIDTH = 600
   const DEFAULT_HEIGHT = 300
 
@@ -13,7 +13,7 @@ function ngToolboxPopup () {
 
   return {
     restrict: 'A',
-    scope: { width: '@ngToolboxPopupWidth', height: '@ngToolboxPopupHeight' },
+    scope: { width: '@ngtbPopupWidth', height: '@ngtbPopupHeight' },
     link (scope, element, attrs) {
       element.on('click', function (event) {
         const width = scope.width || DEFAULT_WIDTH
@@ -46,4 +46,4 @@ function ngToolboxPopup () {
   }
 }
 
-export default ngToolboxPopup
+export default popup

@@ -12,6 +12,7 @@ Set of Angular utilities used at [Wizbii](https://www.wizbii.com/).
 
 ### 0.2.0 - Unreleased
 
+* [x] Add `ngtb` prefix to name space ng-toolbox's stuff
 * [x] Add dropdown directive
 * [x] Loader: add `isntLoading` to check that a state isn't loading
 
