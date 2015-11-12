@@ -15,7 +15,7 @@ var banner = [
 ].join('\n')
 
 module.exports = {
-  entry: './src/ng-toolbox.js',
+  entry: './src/index.js',
 
   output: {
     path: path.join(__dirname, '/dist'),

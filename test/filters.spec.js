@@ -1,6 +1,6 @@
 /* global angular, describe, it, expect, beforeEach, inject */
 
-import '../src/ng-toolbox'
+import '../src'
 
 describe('ng-toolbox has filters that', function () {
   let $filter
