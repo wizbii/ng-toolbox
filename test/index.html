@@ -1,15 +1,15 @@
 <div data-ng-app="app">
-  {{ 'Hey there! Wassup?'|ngtbTruncate: 10 }}
-  <div ngtb-dropdown>
-    <button ngtb-dropdown-toggle>open dropdown</button>
-    <div ngtb-dropdown-menu>hello there, I am the dropdown menu</div>
+  {{ 'Hey there! Wassup?'|tbTruncate: 10 }}
+  <div tb-dropdown>
+    <button tb-dropdown-toggle>open dropdown</button>
+    <div tb-dropdown-menu>hello there, I am the dropdown menu</div>
   </div>
 
-  <a href="https://www.wizbii.com/" ngtb-popup>open wizbii in a popup</a>
+  <a href="https://www.wizbii.com/" tb-popup>open wizbii in a popup</a>
 
   <hr>
   <div ng-controller="DemoController as demo">
-    <input type="text" ngtb-focus-me="demo.focusInput">
+    <input type="text" tb-focus-me="demo.focusInput">
     <button ng-click="demo.setFocus()">focus input</button>
   </div>
 </div>

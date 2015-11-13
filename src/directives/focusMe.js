@@ -1,7 +1,7 @@
 function focusMe () {
   return {
     restrict: 'A',
-    scope: { focusMe: '=ngtbFocusMe' },
+    scope: { focusMe: '=tbFocusMe' },
     link: function (scope, element) {
       scope.$watch('focusMe', function (focusMe) {
         if (!focusMe) return

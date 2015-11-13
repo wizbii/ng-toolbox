@@ -13,7 +13,7 @@ function popup () {
 
   return {
     restrict: 'A',
-    scope: { width: '@ngtbPopupWidth', height: '@ngtbPopupHeight' },
+    scope: { width: '@tbPopupWidth', height: '@tbPopupHeight' },
     link (scope, element, attrs) {
       element.on('click', function (event) {
         const width = scope.width || DEFAULT_WIDTH

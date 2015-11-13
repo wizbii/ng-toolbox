@@ -1,10 +1,10 @@
 /* global angular */
 
-import ngtbDropdown from './dropdown'
-import ngtbDropdownToggle from './dropdownToggle'
-import ngtbDropdownMenu from './dropdownMenu'
+import tbDropdown from './dropdown'
+import tbDropdownToggle from './dropdownToggle'
+import tbDropdownMenu from './dropdownMenu'
 
 export default
   angular
     .module('ng-toolbox-dropdown', [])
-    .directive({ ngtbDropdown, ngtbDropdownToggle, ngtbDropdownMenu })
+    .directive({ tbDropdown, tbDropdownToggle, tbDropdownMenu })
