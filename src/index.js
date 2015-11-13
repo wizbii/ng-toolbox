@@ -1,6 +1,6 @@
 /* global angular */
 
-import './components/dropdown'
+import './modules/dropdown'
 import tbTruncate from './filters/truncate'
 import tbLoader from './factories/Loader'
 import tbPopup from './directives/popup'
