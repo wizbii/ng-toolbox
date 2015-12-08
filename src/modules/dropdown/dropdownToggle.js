@@ -1,6 +1,6 @@
 function dropdownToggle () {
   return {
-    require: '^tbDropdown',
+    require: '^dropdown',
     link: function (scope, element, attrs, ctrl) {
       ctrl.dropdownToggle = element
 

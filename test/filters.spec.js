@@ -17,7 +17,7 @@ describe('ng-toolbox has filters that', function () {
     let truncate
 
     beforeEach(function () {
-      truncate = $filter('tbTruncate')
+      truncate = $filter('truncate')
     })
 
     it('simply return non-string values', function () {

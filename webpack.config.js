@@ -19,7 +19,7 @@ module.exports = {
 
   output: {
     path: path.join(__dirname, '/dist'),
-    filename: 'ng-toolbox.min.js'
+    filename: 'ng-toolbox' + (process.argv.indexOf('-p') > -1 ? '.min' : '') + '.js'
   },
 
   module: {
@@ -33,7 +33,6 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.optimize.UglifyJsPlugin(),
     new webpack.BannerPlugin(banner, { raw: true })
   ]
 }

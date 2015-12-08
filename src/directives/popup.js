@@ -15,8 +15,8 @@ function popup () {
     restrict: 'A',
     link (scope, element, attrs) {
       element.on('click', function (event) {
-        const width = Number(attrs.tbPopupWidth) || DEFAULT_WIDTH
-        const height = Number(attrs.tbPopupHeight) || DEFAULT_HEIGHT
+        const width = Number(attrs.popupWidth) || DEFAULT_WIDTH
+        const height = Number(attrs.popupHeight) || DEFAULT_HEIGHT
 
         const position = {
           left: (window.screen.width / 2) - (width / 2),

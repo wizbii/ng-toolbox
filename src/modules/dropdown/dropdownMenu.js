@@ -1,6 +1,6 @@
 function dropdownMenu () {
   return {
-    require: '^tbDropdown',
+    require: '^dropdown',
     link: function (scope, element, attrs, ctrl) {
       ctrl.dropdownMenu = element
     }
