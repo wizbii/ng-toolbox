@@ -12,6 +12,7 @@ Set of Angular utilities used at [Wizbii](https://www.wizbii.com/).
 
 ### 0.2.0 - Unreleased
 
+* [x] Add tabs directive
 * [x] Add focusMe directive
 * [x] Add popup directive
 * [x] Add dropdown directive

@@ -65,23 +65,25 @@
 
 	__webpack_require__(1);
 
-	var _filtersTruncate = __webpack_require__(5);
+	__webpack_require__(5);
+
+	var _filtersTruncate = __webpack_require__(8);
 
 	var _filtersTruncate2 = _interopRequireDefault(_filtersTruncate);
 
-	var _factoriesLoader = __webpack_require__(6);
+	var _factoriesLoader = __webpack_require__(9);
 
 	var _factoriesLoader2 = _interopRequireDefault(_factoriesLoader);
 
-	var _directivesPopup = __webpack_require__(7);
+	var _directivesPopup = __webpack_require__(10);
 
 	var _directivesPopup2 = _interopRequireDefault(_directivesPopup);
 
-	var _directivesFocusMe = __webpack_require__(8);
+	var _directivesFocusMe = __webpack_require__(11);
 
 	var _directivesFocusMe2 = _interopRequireDefault(_directivesFocusMe);
 
-	exports['default'] = angular.module('ng-toolbox', ['ng-toolbox-dropdown']).filter({ truncate: _filtersTruncate2['default'] }).factory({ Loader: _factoriesLoader2['default'] }).directive({ popup: _directivesPopup2['default'], focusMe: _directivesFocusMe2['default'] });
+	exports['default'] = angular.module('ng-toolbox', ['ng-toolbox-dropdown', 'ng-toolbox-tabs']).filter({ truncate: _filtersTruncate2['default'] }).factory({ Loader: _factoriesLoader2['default'] }).directive({ popup: _directivesPopup2['default'], focusMe: _directivesFocusMe2['default'] });
 	module.exports = exports['default'];
 
 /***/ },
@@ -207,6 +209,99 @@
 
 /***/ },
 /* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* global angular */
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _tabs = __webpack_require__(6);
+
+	var _tabs2 = _interopRequireDefault(_tabs);
+
+	var _pane = __webpack_require__(7);
+
+	var _pane2 = _interopRequireDefault(_pane);
+
+	exports['default'] = angular.module('ng-toolbox-tabs', []).directive({ tabs: _tabs2['default'], pane: _pane2['default'] });
+	module.exports = exports['default'];
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+	/* global angular */
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	function tabs() {
+	  return {
+	    restrict: 'EA',
+	    transclude: true,
+	    controllerAs: 'tabsCtrl',
+	    controller: function controller() {
+	      var vm = this;
+
+	      vm.panes = [];
+	      vm.addPane = addPane;
+	      vm.select = select;
+
+	      function addPane(pane) {
+	        var hash = (window.location.hash || '').substr(1);
+	        pane.selected = vm.panes.length === 1 || hash === pane.alias;
+	        vm.panes.push(pane);
+	      }
+
+	      function select(pane) {
+	        angular.forEach(vm.panes, function (p) {
+	          p.selected = p === pane;
+	          if (p.selected && p.alias) window.location.hash = p.alias;
+	        });
+	      }
+	    },
+	    template: '\n        <ul class="tabs">\n          <li class="tabs__item" ng-repeat="pane in tabsCtrl.panes" ng-click="tabsCtrl.select(pane)">\n            {{ pane.title }}\n          </li>\n        </ul>\n\n        <ng-transclude></ng-transclude>\n      '
+	  };
+	}
+
+	exports['default'] = tabs;
+	module.exports = exports['default'];
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	function pane() {
+	  return {
+	    require: '^tabs',
+	    restrict: 'EA',
+	    transclude: true,
+	    scope: { title: '@', alias: '@' },
+	    link: function link(scope, element, attrs, tabsCtrl) {
+	      tabsCtrl.addPane(scope);
+	    },
+	    template: '\n        <div class="pane" ng-show="selected" ng-transclude></div>\n      '
+	  };
+	}
+
+	exports['default'] = pane;
+	module.exports = exports['default'];
+
+/***/ },
+/* 8 */
 /***/ function(module, exports) {
 
 	/* global angular */
@@ -239,7 +334,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 6 */
+/* 9 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -282,7 +377,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 7 */
+/* 10 */
 /***/ function(module, exports) {
 
 	/* global _ */
@@ -341,7 +436,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 8 */
+/* 11 */
 /***/ function(module, exports) {
 
 	'use strict';
