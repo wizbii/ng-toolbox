@@ -257,7 +257,13 @@
 
 	      function addPane(pane) {
 	        var hash = (window.location.hash || '').substr(1);
-	        pane.selected = vm.panes.length === 1 || hash === pane.alias;
+	        var selected = vm.panes.length === 1 || hash === pane.alias;
+
+	        if (selected) angular.forEach(vm.panes, function (p) {
+	          return p.selected = false;
+	        });
+	        pane.selected = selected;
+
 	        vm.panes.push(pane);
 	      }
 

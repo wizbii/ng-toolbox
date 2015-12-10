@@ -14,7 +14,11 @@ function tabs () {
 
       function addPane (pane) {
         const hash = (window.location.hash || '').substr(1)
-        pane.selected = vm.panes.length === 1 || hash === pane.alias
+        const selected = vm.panes.length === 1 || hash === pane.alias
+
+        if (selected) angular.forEach(vm.panes, (p) => p.selected = false)
+        pane.selected = selected
+
         vm.panes.push(pane)
       }
 
