@@ -257,7 +257,7 @@
 
 	      function addPane(pane) {
 	        var hash = (window.location.hash || '').substr(1);
-	        var selected = vm.panes.length === 1 || hash === pane.alias;
+	        var selected = vm.panes.length === 0 || hash === pane.alias;
 
 	        if (selected) angular.forEach(vm.panes, function (p) {
 	          return p.selected = false;
