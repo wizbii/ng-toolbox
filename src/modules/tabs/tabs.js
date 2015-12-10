@@ -28,7 +28,10 @@ function tabs () {
     template:
       `
         <ul class="tabs">
-          <li class="tabs__item" ng-repeat="pane in tabsCtrl.panes" ng-click="tabsCtrl.select(pane)">
+          <li class="tabs__item"
+              ng-class="{ 'tabs__item--active': pane.selected }"
+              ng-repeat="pane in tabsCtrl.panes"
+              ng-click="tabsCtrl.select(pane)">
             {{ pane.title }}
           </li>
         </ul>

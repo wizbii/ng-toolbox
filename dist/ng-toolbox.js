@@ -268,7 +268,7 @@
 	        });
 	      }
 	    },
-	    template: '\n        <ul class="tabs">\n          <li class="tabs__item" ng-repeat="pane in tabsCtrl.panes" ng-click="tabsCtrl.select(pane)">\n            {{ pane.title }}\n          </li>\n        </ul>\n\n        <ng-transclude></ng-transclude>\n      '
+	    template: '\n        <ul class="tabs">\n          <li class="tabs__item"\n              ng-class="{ \'tabs__item--active\': pane.selected }"\n              ng-repeat="pane in tabsCtrl.panes"\n              ng-click="tabsCtrl.select(pane)">\n            {{ pane.title }}\n          </li>\n        </ul>\n\n        <ng-transclude></ng-transclude>\n      '
 	  };
 	}
 
