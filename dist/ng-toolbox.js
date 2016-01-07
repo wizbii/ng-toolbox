@@ -321,14 +321,14 @@
 	  return function (str, maxLength) {
 	    var ellipsis = arguments.length <= 2 || arguments[2] === undefined ? '...' : arguments[2];
 
-	    if (!angular.isString(str) || str.length <= maxLength || str.indexOf(' ') === -1) {
+	    if (!angular.isString(str) || str.replace(/<\/?em>/gi, '').length <= maxLength || str.indexOf(' ') === -1) {
 	      return str;
 	    }
 
 	    var partials = str.split(' ');
 	    str = '';
 
-	    while (partials.length && (str + ' ' + partials[0] + ellipsis).length <= maxLength) {
+	    while (partials.length && (str + ' ' + partials[0] + ellipsis).replace(/<\/?em>/gi, '').length <= maxLength) {
 	      str = (str + ' ' + partials.shift()).trim();
 	    }
 
