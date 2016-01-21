@@ -1,5 +1,8 @@
 function dropdown ($document) {
   return {
+    scope: {
+      dropdownAutoClose: '@'
+    },
     controller: [
       '$scope',
       function ($scope) {
@@ -8,7 +11,7 @@ function dropdown ($document) {
 
         // close the drop down when clicking outside of it or the toggle button
         $document.on('click', function (event) {
-          if (contains(self.dropdownMenu, event.target)) return
+          if (self.dropdownAutoClose !== 'true' && contains(self.dropdownMenu, event.target)) return
           if (contains(self.dropdownToggle, event.target)) return
 
           self.isOpen = false
@@ -29,7 +32,9 @@ function dropdown ($document) {
           return container[0].contains(target)
         }
       }
-    ]
+    ],
+    controllerAs: 'dropdown',
+    bindToController: true
   }
 }
 

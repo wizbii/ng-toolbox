@@ -21,8 +21,15 @@
   <div ng-controller="DemoController as demo">
     <input type="text" focus-me="demo.focusInput">
     <button ng-click="demo.setFocus()">focus input</button>
+
+    <div dropdown dropdown-auto-close="true">
+      <button dropdown-toggle>open dropdown</button>
+      <div ng-click="demo.alert()" style="cursor:pointer;" dropdown-menu>hello there, I am the dropdown menu</div>
+    </div>
   </div>
 </div>
+
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>
@@ -36,6 +43,8 @@
 
         vm.focusInput = false;
         vm.setFocus = function () { vm.focusInput = true; };
+
+        vm.alert = function () { alert("ok :-)") }
       }
     ])
 </script>

@@ -126,13 +126,16 @@
 	});
 	function dropdown($document) {
 	  return {
+	    scope: {
+	      dropdownAutoClose: '@'
+	    },
 	    controller: ['$scope', function ($scope) {
 	      var self = this;
 	      self.isOpen = false;
 
 	      // close the drop down when clicking outside of it or the toggle button
 	      $document.on('click', function (event) {
-	        if (contains(self.dropdownMenu, event.target)) return;
+	        if (self.dropdownAutoClose !== 'true' && contains(self.dropdownMenu, event.target)) return;
 	        if (contains(self.dropdownToggle, event.target)) return;
 
 	        self.isOpen = false;
@@ -151,7 +154,9 @@
 	        if (container == null) return false;
 	        return container[0].contains(target);
 	      }
-	    }]
+	    }],
+	    controllerAs: 'dropdown',
+	    bindToController: true
 	  };
 	}
 
