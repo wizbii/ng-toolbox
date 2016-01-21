@@ -11,7 +11,9 @@
     "commit": "npm run test && git-cz"
   },
   "standard": {
-    "ignore": ["dist"]
+    "ignore": [
+      "dist"
+    ]
   },
   "pre-commit": {
     "run": [
@@ -52,6 +54,7 @@
     "karma-webpack": "^1.7.0",
     "phantomjs": "^1.9.18",
     "pre-commit": "^1.1.1",
+    "standard": "^5.4.1",
     "webpack": "^1.12.2"
   }
 }
