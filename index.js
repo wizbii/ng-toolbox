@@ -1,1 +1,1 @@
-module.exports = require('./dist/ng-toolbox.min.js')
+module.exports = require('./dist/ng-toolbox.js')
