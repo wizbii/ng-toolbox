@@ -15,13 +15,10 @@ git checkout -b build
 npm run build
 git add dist
 
-# remove irrelevant files
-git rm -r .editorconfig release.sh webpack.config.js
-git commit -m "release $VERSION"
-
 # create tag and push
+git commit -m "release $VERSION"
 git tag $VERSION
-git push --tags git@github.com:wizbii/ng-toolbox.git $VERSION
+git push --tags
 
 # publish to npm
 npm publish

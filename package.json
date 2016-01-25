@@ -11,6 +11,14 @@
     "dev": "webpack --progress --colors --watch",
     "commit": "npm run test && git-cz"
   },
+  "files": [
+    "dist",
+    "src",
+    "index.js",
+    "LICENSE",
+    "package.json",
+    "README.md"
+  ],
   "standard": {
     "ignore": [
       "dist"
