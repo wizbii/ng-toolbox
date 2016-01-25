@@ -16,6 +16,7 @@ Set of Angular utilities used at [Wizbii](https://www.wizbii.com/).
 * [x] Add focusMe directive
 * [x] Add popup directive
 * [x] Add dropdown directive
+* [x] truncate now removes html tags
 * [x] Loader: add `isntLoading` to check that a state isn't loading
 
 ### 0.1.0 - 2015-10-18

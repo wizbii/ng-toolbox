@@ -48,8 +48,8 @@ describe('ng-toolbox has filters that', function () {
       expect(truncate('Hey guys, what\'s up?', 14, ' (...)')).toBe('Hey (...)')
     })
 
-    it('supports em tags', function () {
-      expect(truncate('Wassup <em>my</em> nigga?', 12)).toBe('Wassup <em>my</em>...')
+    it('removes html tags', function () {
+      expect(truncate('Wassup <em>my</em> nigga?', 12)).toBe('Wassup my...')
     })
   })
 })
