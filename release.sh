@@ -16,7 +16,7 @@ npm run build
 git add dist
 
 # remove irrelevant files
-git rm -r test .editorconfig karma.conf.js release.sh webpack.config.js
+git rm -r .editorconfig release.sh webpack.config.js
 git commit -m "release $VERSION"
 
 # create tag and push
