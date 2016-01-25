@@ -1,6 +1,6 @@
 {
   "name": "ng-toolbox",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Set of Angular utilities used at Wizbii.",
   "main": "index.js",
   "scripts": {

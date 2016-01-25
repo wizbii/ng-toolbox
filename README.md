@@ -10,14 +10,14 @@ Set of Angular utilities used at [Wizbii](https://www.wizbii.com/).
 
 ## Change Log
 
-### 0.2.0 - Unreleased
+### 1.0.0 - 2016-01-25
 
-* [x] Add tabs directive
-* [x] Add focusMe directive
-* [x] Add popup directive
-* [x] Add dropdown directive
-* [x] truncate now removes html tags
-* [x] Loader: add `isntLoading` to check that a state isn't loading
+* Add tabs directive
+* Add focusMe directive
+* Add popup directive
+* Add dropdown directive
+* truncate now removes html tags
+* Loader: add `isntLoading` to check that a state isn't loading
 
 ### 0.1.0 - 2015-10-18
 
