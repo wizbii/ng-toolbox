@@ -1,8 +1,10 @@
+#!/usr/bin/env bash
+
 # adapted from:
 # https://github.com/pouchdb/pouchdb/blob/master/bin/release.sh
 
 # make sure deps are up to date
-rm -r node_modules
+rm -rf node_modules
 npm install
 
 # get current version
@@ -14,7 +16,7 @@ npm run build
 git add dist
 
 # remove irrelevant files
-git rm -r test .editorconfig index.js karma.conf.js release.sh webpack.config.js
+git rm -r test .editorconfig karma.conf.js release.sh webpack.config.js
 git commit -m "release $VERSION"
 
 # create tag and push
