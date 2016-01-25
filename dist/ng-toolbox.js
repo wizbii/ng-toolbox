@@ -1,5 +1,5 @@
 /*!
- * ng-toolbox - v0.1.0
+ * ng-toolbox - v1.0.0
  * Set of Angular utilities used at Wizbii.
  * https://github.com/wizbii/ng-toolbox#readme
  *
