@@ -41,6 +41,14 @@
       <button dropdown-toggle>open dropdown</button>
       <div ng-click="demo.alert()" style="cursor:pointer;" dropdown-menu>hello there, I am the dropdown menu</div>
     </div>
+
+    <button type="button" ng-if="demo.showAndFocusInput !== 'active'" ng-click="demo.showAndFocusInput = 'active'">
+      show & focus input
+    </button>
+
+    <div ng-if="demo.showAndFocusInput === 'active'">
+      <input type="text" focus-me="demo.showAndFocusInput" ng-blur="demo.showAndFocusInput = 'inactive'">
+    </div>
   </div>
 </div>
 

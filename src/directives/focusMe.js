@@ -3,11 +3,12 @@ function focusMe () {
     restrict: 'A',
     scope: { focusMe: '=' },
     link: function (scope, element) {
-      scope.$watch('focusMe', function (focusMe) {
-        if (!focusMe) return
+      element.on('blur', function () {
+        if (typeof scope.focusMe === 'boolean') scope.focusMe = false
+      })
 
-        scope.focusMe = false
-        element[0].focus()
+      scope.$watch('focusMe', function (focusMe) {
+        if (focusMe) element[0].focus()
       })
     }
   }
