@@ -253,12 +253,21 @@
 	    restrict: 'EA',
 	    transclude: true,
 	    controllerAs: 'tabsCtrl',
-	    controller: function controller() {
+	    controller: ['$rootScope', function ($rootScope) {
 	      var vm = this;
 
 	      vm.panes = [];
 	      vm.addPane = addPane;
 	      vm.select = select;
+
+	      $rootScope.$on('tabs.select', function (event, alias) {
+	        vm.panes.some(function (pane) {
+	          if (getAlias(pane) === alias) {
+	            select(pane);
+	            return false;
+	          }
+	        });
+	      });
 
 	      function addPane(pane) {
 	        var hash = (window.location.hash || '').substr(1);
@@ -285,7 +294,7 @@
 	      function getAlias(pane) {
 	        return angular.isString(pane.alias) ? pane.alias : pane.title.replace(/<[^>]+>/g, '').replace(/\s/g, '-').toLowerCase();
 	      }
-	    },
+	    }],
 	    template: '\n        <ul class="tabs">\n          <li class="tabs__item"\n              ng-class="{ \'tabs__item--active\': pane.selected }"\n              ng-repeat="pane in tabsCtrl.panes"\n              ng-click="tabsCtrl.select(pane)">\n            {{ pane.title }}\n          </li>\n        </ul>\n\n        <ng-transclude></ng-transclude>\n      '
 	  };
 	}

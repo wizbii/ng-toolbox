@@ -1,28 +1,35 @@
 <div data-ng-app="app">
-  <tabs>
-    <pane title="Home" alias="home">
-      Home pane
-    </pane>
-
-    <pane title="Recrutement" alias="recrutement">
-      Recrutement pane
-    </pane>
-
-    <pane title="No Title">
-      This is a no-title pane
-    </pane>
-  </tabs>
-
-  {{ 'Hey there! Wassup?'|truncate: 10 }}
-  <div dropdown>
-    <button dropdown-toggle>open dropdown</button>
-    <div dropdown-menu>hello there, I am the dropdown menu</div>
-  </div>
-
-  <a href="https://www.wizbii.com/" popup>open wizbii in a popup</a>
-
-  <hr>
   <div ng-controller="DemoController as demo">
+    <tabs>
+      <pane title="Home" alias="home">
+        Home pane
+      </pane>
+
+      <pane title="Recrutement" alias="recrutement">
+        Recrutement pane
+      </pane>
+
+      <pane title="No Title">
+        This is a no-title pane
+      </pane>
+
+      <pane title="Selectable Pane" alias="selectable-pane">
+        This is a selectable pane
+      </pane>
+    </tabs>
+
+    <button type="button" data-ng-click="demo.selectPane()">select "Selectable Pane"</button>
+
+    {{ 'Hey there! Wassup?'|truncate: 10 }}
+    <div dropdown>
+      <button dropdown-toggle>open dropdown</button>
+      <div dropdown-menu>hello there, I am the dropdown menu</div>
+    </div>
+
+    <a href="https://www.wizbii.com/" popup>open wizbii in a popup</a>
+
+    <hr>
+
     <input type="text" focus-me="demo.focusInput">
     <button ng-click="demo.setFocus()">focus input</button>
 
@@ -34,7 +41,6 @@
 </div>
 
 
-
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>
 <script src="../dist/ng-toolbox.js"></script>
@@ -42,13 +48,22 @@
   angular
     .module('app', ['ng-toolbox'])
     .controller('DemoController', [
-      function () {
+      '$scope',
+      function ($scope) {
         var vm = this;
 
         vm.focusInput = false;
-        vm.setFocus = function () { vm.focusInput = true; };
+        vm.setFocus = function () {
+          vm.focusInput = true;
+        };
 
-        vm.alert = function () { alert("ok :-)") }
+        vm.alert = function () {
+          alert("ok :-)")
+        }
+
+        vm.selectPane = function () {
+          $scope.$emit('tabs.select', 'selectable-pane')
+        }
       }
     ])
 </script>
