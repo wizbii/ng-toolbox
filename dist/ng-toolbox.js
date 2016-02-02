@@ -1,5 +1,5 @@
 /*!
- * ng-toolbox - v0.1.0
+ * ng-toolbox - v1.0.0
  * Set of Angular utilities used at Wizbii.
  * https://github.com/wizbii/ng-toolbox#readme
  *
@@ -262,7 +262,8 @@
 
 	      function addPane(pane) {
 	        var hash = (window.location.hash || '').substr(1);
-	        var selected = vm.panes.length === 0 || hash === pane.alias;
+	        var alias = getAlias(pane);
+	        var selected = vm.panes.length === 0 || hash === alias;
 
 	        if (selected) angular.forEach(vm.panes, function (p) {
 	          return p.selected = false;
@@ -275,8 +276,14 @@
 	      function select(pane) {
 	        angular.forEach(vm.panes, function (p) {
 	          p.selected = p === pane;
-	          if (p.selected && p.alias) window.location.hash = p.alias;
+
+	          var alias = getAlias(p);
+	          if (p.selected) window.location.hash = alias;
 	        });
+	      }
+
+	      function getAlias(pane) {
+	        return angular.isString(pane.alias) ? pane.alias : pane.title.replace(/<[^>]+>/g, '').replace(/\s/g, '-').toLowerCase();
 	      }
 	    },
 	    template: '\n        <ul class="tabs">\n          <li class="tabs__item"\n              ng-class="{ \'tabs__item--active\': pane.selected }"\n              ng-repeat="pane in tabsCtrl.panes"\n              ng-click="tabsCtrl.select(pane)">\n            {{ pane.title }}\n          </li>\n        </ul>\n\n        <ng-transclude></ng-transclude>\n      '

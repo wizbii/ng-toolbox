@@ -14,7 +14,8 @@ function tabs () {
 
       function addPane (pane) {
         const hash = (window.location.hash || '').substr(1)
-        const selected = vm.panes.length === 0 || hash === pane.alias
+        const alias = getAlias(pane)
+        const selected = vm.panes.length === 0 || hash === alias
 
         if (selected) angular.forEach(vm.panes, (p) => p.selected = false)
         pane.selected = selected
@@ -25,8 +26,18 @@ function tabs () {
       function select (pane) {
         angular.forEach(vm.panes, function (p) {
           p.selected = p === pane
-          if (p.selected && p.alias) window.location.hash = p.alias
+
+          const alias = getAlias(p)
+          if (p.selected) window.location.hash = alias
         })
+      }
+
+      function getAlias (pane) {
+        return (
+          angular.isString(pane.alias)
+            ? pane.alias
+            : pane.title.replace(/<[^>]+>/g, '').replace(/\s/g, '-').toLowerCase()
+        )
       }
     },
     template:
