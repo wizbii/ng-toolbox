@@ -16,6 +16,10 @@
       <pane title="Selectable Pane" alias="selectable-pane">
         This is a selectable pane
       </pane>
+
+      <pane title="With <strong>html</strong>">
+        with some html
+      </pane>
     </tabs>
 
     <button type="button" data-ng-click="demo.selectPane()">select "Selectable Pane"</button>
@@ -42,11 +46,12 @@
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-sanitize.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>
 <script src="../dist/ng-toolbox.js"></script>
 <script>
   angular
-    .module('app', ['ng-toolbox'])
+    .module('app', ['ng-toolbox', 'ngSanitize'])
     .controller('DemoController', [
       '$scope',
       function ($scope) {

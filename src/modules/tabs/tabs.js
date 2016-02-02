@@ -58,8 +58,8 @@ function tabs () {
           <li class="tabs__item"
               ng-class="{ 'tabs__item--active': pane.selected }"
               ng-repeat="pane in tabsCtrl.panes"
-              ng-click="tabsCtrl.select(pane)">
-            {{ pane.title }}
+              ng-click="tabsCtrl.select(pane)"
+              ng-bind-html="pane.title">
           </li>
         </ul>
 
