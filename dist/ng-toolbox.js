@@ -67,23 +67,25 @@
 
 	__webpack_require__(5);
 
-	var _filtersTruncate = __webpack_require__(8);
+	__webpack_require__(8);
+
+	var _filtersTruncate = __webpack_require__(11);
 
 	var _filtersTruncate2 = _interopRequireDefault(_filtersTruncate);
 
-	var _factoriesLoader = __webpack_require__(9);
+	var _factoriesLoader = __webpack_require__(12);
 
 	var _factoriesLoader2 = _interopRequireDefault(_factoriesLoader);
 
-	var _directivesPopup = __webpack_require__(10);
+	var _directivesPopup = __webpack_require__(13);
 
 	var _directivesPopup2 = _interopRequireDefault(_directivesPopup);
 
-	var _directivesFocusMe = __webpack_require__(11);
+	var _directivesFocusMe = __webpack_require__(14);
 
 	var _directivesFocusMe2 = _interopRequireDefault(_directivesFocusMe);
 
-	exports['default'] = angular.module('ng-toolbox', ['ng-toolbox-dropdown', 'ng-toolbox-tabs']).filter({ truncate: _filtersTruncate2['default'] }).factory({ Loader: _factoriesLoader2['default'] }).directive({ popup: _directivesPopup2['default'], focusMe: _directivesFocusMe2['default'] });
+	exports['default'] = angular.module('ng-toolbox', ['ng-toolbox-dropdown', 'ng-toolbox-tabs', 'ng-toolbox-lightbox-image']).filter({ truncate: _filtersTruncate2['default'] }).factory({ Loader: _factoriesLoader2['default'] }).directive({ popup: _directivesPopup2['default'], focusMe: _directivesFocusMe2['default'] });
 	module.exports = exports['default'];
 
 /***/ },
@@ -329,6 +331,107 @@
 
 /***/ },
 /* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* global angular */
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _lightboxImage = __webpack_require__(9);
+
+	var _lightboxImage2 = _interopRequireDefault(_lightboxImage);
+
+	var _lightboxImageOpen = __webpack_require__(10);
+
+	var _lightboxImageOpen2 = _interopRequireDefault(_lightboxImageOpen);
+
+	exports['default'] = angular.module('ng-toolbox-lightbox-image', []).directive({ lightboxImage: _lightboxImage2['default'], lightboxImageOpen: _lightboxImageOpen2['default'] }).run(['$document', '$compile', '$rootScope', function ($document, $compile, $rootScope) {
+	  var lightboxImage = $compile('<lightbox-image></lightbox-image>')($rootScope.$new());
+	  $document.find('body').append(lightboxImage);
+	}]);
+	module.exports = exports['default'];
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	function lightboxImage($rootScope, $document) {
+	  return {
+	    restrict: 'E',
+	    scope: true,
+	    link: function link(scope) {
+	      scope.toasts = [];
+	      scope.active = false;
+
+	      $rootScope.$on('lightbox:open', function (event, src) {
+	        scope.src = src;
+	        scope.active = true;
+	        $document.find('body').css('overflow', 'hidden');
+	      });
+
+	      $document.on('keyup', function (event) {
+	        if (event.which === 27) {
+	          scope.$apply(function () {
+	            scope.close();
+	          });
+	        }
+	      });
+
+	      scope.close = function () {
+	        $document.find('body').css('overflow', 'auto');
+	        scope.active = false;
+	      };
+	    },
+	    template: '<div ng-if="active" ng-class="{\'lightbox-image--active\': active}" class="lightbox-image">' + '   <span class="lightbox-image-cross" ng-click="close()"><span class="icon-cross"></span></span>' + '   <img style="margin:auto;" ng-src="{{ src }}">' + '</div>'
+	  };
+	}
+
+	lightboxImage.$inject = ['$rootScope', '$document'];
+
+	exports['default'] = lightboxImage;
+	module.exports = exports['default'];
+
+/***/ },
+/* 10 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	function lightboxImageOpen($rootScope) {
+	  return {
+	    restrict: 'A',
+	    scope: {
+	      src: '@lightboxImageSrc'
+	    },
+	    link: function link(scope, element) {
+	      element.on('click', function () {
+	        $rootScope.$emit('lightbox:open', scope.src);
+	      });
+	    }
+	  };
+	}
+
+	lightboxImageOpen.$inject = ['$rootScope'];
+
+	exports['default'] = lightboxImageOpen;
+	module.exports = exports['default'];
+
+/***/ },
+/* 11 */
 /***/ function(module, exports) {
 
 	/* global angular */
@@ -363,7 +466,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 9 */
+/* 12 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -406,7 +509,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 10 */
+/* 13 */
 /***/ function(module, exports) {
 
 	/* global _ */
@@ -465,7 +568,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 11 */
+/* 14 */
 /***/ function(module, exports) {
 
 	'use strict';
