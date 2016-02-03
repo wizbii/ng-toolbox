@@ -1,17 +1,23 @@
-function focusMe () {
+function focusMe ($parse) {
   return {
     restrict: 'A',
     scope: { focusMe: '=' },
-    link: function (scope, element) {
-      element.on('blur', function () {
-        if (typeof scope.focusMe === 'boolean') scope.focusMe = false
-      })
-
+    link (scope, element, attrs) {
       scope.$watch('focusMe', function (focusMe) {
         if (focusMe) element[0].focus()
       })
+
+      const isAssignable = Boolean($parse(attrs.focusMe).assign)
+
+      if (isAssignable) {
+        element.on('blur', function () {
+          scope.focusMe = false
+        })
+      }
     }
   }
 }
+
+focusMe.$inject = ['$parse']
 
 export default focusMe
