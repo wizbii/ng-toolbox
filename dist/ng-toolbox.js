@@ -418,7 +418,7 @@
 	    restrict: 'A',
 	    link: function link(scope, element, attrs) {
 	      element.on('click', function () {
-	        $rootScope.$emit('lightbox:open', attrs.lightboxOpen);
+	        $rootScope.$emit('lightbox:open', attrs.lightboxImageOpen);
 	      });
 	    }
 	  };
