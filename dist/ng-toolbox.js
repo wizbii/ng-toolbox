@@ -352,7 +352,9 @@
 	var _lightboxImageOpen2 = _interopRequireDefault(_lightboxImageOpen);
 
 	exports['default'] = angular.module('ng-toolbox-lightbox-image', []).directive({ lightboxImage: _lightboxImage2['default'], lightboxImageOpen: _lightboxImageOpen2['default'] }).run(['$document', '$compile', '$rootScope', function ($document, $compile, $rootScope) {
-	  var lightboxImage = $compile('<lightbox-image></lightbox-image>')($rootScope.$new());
+	  var $scope = $rootScope.$new();
+	  var lightboxImage = $compile('<lightbox-image></lightbox-image>')($scope);
+
 	  $document.find('body').append(lightboxImage);
 	}]);
 	module.exports = exports['default'];
@@ -373,29 +375,28 @@
 	    link: function link(scope) {
 	      scope.toasts = [];
 	      scope.active = false;
+	      scope.close = close;
 
 	      $rootScope.$on('lightbox:open', function (event, src) {
 	        $timeout(function () {
 	          scope.src = src;
 	          scope.active = true;
+
 	          $document.find('body').css('overflow', 'hidden');
 	        });
 	      });
 
 	      $document.on('keyup', function (event) {
-	        if (event.which === 27) {
-	          scope.$apply(function () {
-	            scope.close();
-	          });
-	        }
+	        if (event.which === 27) scope.$apply(close);
 	      });
 
-	      scope.close = function () {
+	      function close() {
 	        $document.find('body').css('overflow', 'auto');
+
 	        scope.active = false;
-	      };
+	      }
 	    },
-	    template: '<div ng-if="active" ng-class="{\'lightbox-image--active\': active}" class="lightbox">' + '   <span class="lightbox-image-cross" ng-click="close()"><span class="icon-cross"></span></span>' + '   <img style="margin:auto;" ng-src="{{ src }}">' + '</div>'
+	    template: '\n      <div ng-if="active" class="lightbox">\n        <span class="lightbox__cross-btn" ng-click="close()">\n          <span class="icon-cross"></span>\n        </span>\n\n        <div class="lightbox__inner">\n          <img ng-src="{{ src }}" alt="">\n        </div>\n      </div>\n    '
 	  };
 	}
 
