@@ -33,7 +33,7 @@ function lightboxImage ($rootScope, $document, $timeout) {
     template:
     `
       <div ng-if="active" ng-click="close()" class="lightbox">
-        <span class="lightbox__cross-btn" ng-click="close()">
+        <span class="lightbox__close-btn" ng-click="close()">
           <span class="icon-cross"></span>
         </span>
 
