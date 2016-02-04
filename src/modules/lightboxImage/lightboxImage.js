@@ -27,7 +27,7 @@ function lightboxImage ($rootScope, $document) {
         scope.active = false
       }
     },
-    template: '<div ng-if="active" ng-class="{\'lightbox-image--active\': active}" class="lightbox-image">' +
+    template: '<div ng-if="active" ng-class="{\'lightbox-image--active\': active}" class="lightbox">' +
     '   <span class="lightbox-image-cross" ng-click="close()"><span class="icon-cross"></span></span>' +
     '   <img style="margin:auto;" ng-src="{{ src }}">' +
     '</div>'

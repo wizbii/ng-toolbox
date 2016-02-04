@@ -2,7 +2,7 @@
 
 import './modules/dropdown'
 import './modules/tabs'
-import './modules/lightbox-image'
+import './modules/lightboxImage'
 import truncate from './filters/truncate'
 import Loader from './factories/Loader'
 import popup from './directives/popup'

@@ -1,12 +1,9 @@
 function lightboxImageOpen ($rootScope) {
   return {
     restrict: 'A',
-    scope: {
-      src: '@lightboxImageSrc'
-    },
-    link: function (scope, element) {
+    link: function (scope, element, attrs) {
       element.on('click', function () {
-        $rootScope.$emit('lightbox:open', scope.src)
+        $rootScope.$emit('lightbox:open', attrs.lightboxOpen)
       })
     }
   }

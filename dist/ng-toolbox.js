@@ -351,7 +351,7 @@
 
 	var _lightboxImageOpen2 = _interopRequireDefault(_lightboxImageOpen);
 
-	exports['default'] = angular.module('ng-toolbox-lightbox-image', []).directive({ lightboxImage: _lightboxImage2['default'], lightboxImageOpen: _lightboxImageOpen2['default'] }).run(['$document', '$compile', '$rootScope', function ($document, $compile, $rootScope) {
+	exports['default'] = angular.module('ng-toolbox-lightbox', []).directive({ lightboxImage: _lightboxImage2['default'], lightboxImageOpen: _lightboxImageOpen2['default'] }).run(['$document', '$compile', '$rootScope', function ($document, $compile, $rootScope) {
 	  var lightboxImage = $compile('<lightbox-image></lightbox-image>')($rootScope.$new());
 	  $document.find('body').append(lightboxImage);
 	}]);
@@ -393,7 +393,7 @@
 	        scope.active = false;
 	      };
 	    },
-	    template: '<div ng-if="active" ng-class="{\'lightbox-image--active\': active}" class="lightbox-image">' + '   <span class="lightbox-image-cross" ng-click="close()"><span class="icon-cross"></span></span>' + '   <img style="margin:auto;" ng-src="{{ src }}">' + '</div>'
+	    template: '<div ng-if="active" ng-class="{\'lightbox-image--active\': active}" class="lightbox">' + '   <span class="lightbox-image-cross" ng-click="close()"><span class="icon-cross"></span></span>' + '   <img style="margin:auto;" ng-src="{{ src }}">' + '</div>'
 	  };
 	}
 
@@ -414,12 +414,9 @@
 	function lightboxImageOpen($rootScope) {
 	  return {
 	    restrict: 'A',
-	    scope: {
-	      src: '@lightboxImageSrc'
-	    },
-	    link: function link(scope, element) {
+	    link: function link(scope, element, attrs) {
 	      element.on('click', function () {
-	        $rootScope.$emit('lightbox:open', scope.src);
+	        $rootScope.$emit('lightbox:open', attrs.lightboxOpen);
 	      });
 	    }
 	  };
