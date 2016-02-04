@@ -351,7 +351,7 @@
 
 	var _lightboxImageOpen2 = _interopRequireDefault(_lightboxImageOpen);
 
-	exports['default'] = angular.module('ng-toolbox-lightbox', []).directive({ lightboxImage: _lightboxImage2['default'], lightboxImageOpen: _lightboxImageOpen2['default'] }).run(['$document', '$compile', '$rootScope', function ($document, $compile, $rootScope) {
+	exports['default'] = angular.module('ng-toolbox-lightbox-image', []).directive({ lightboxImage: _lightboxImage2['default'], lightboxImageOpen: _lightboxImageOpen2['default'] }).run(['$document', '$compile', '$rootScope', function ($document, $compile, $rootScope) {
 	  var lightboxImage = $compile('<lightbox-image></lightbox-image>')($rootScope.$new());
 	  $document.find('body').append(lightboxImage);
 	}]);
@@ -366,7 +366,7 @@
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
-	function lightboxImage($rootScope, $document) {
+	function lightboxImage($rootScope, $document, $timeout) {
 	  return {
 	    restrict: 'E',
 	    scope: true,
@@ -375,9 +375,11 @@
 	      scope.active = false;
 
 	      $rootScope.$on('lightbox:open', function (event, src) {
-	        scope.src = src;
-	        scope.active = true;
-	        $document.find('body').css('overflow', 'hidden');
+	        $timeout(function () {
+	          scope.src = src;
+	          scope.active = true;
+	          $document.find('body').css('overflow', 'hidden');
+	        });
 	      });
 
 	      $document.on('keyup', function (event) {
@@ -397,7 +399,7 @@
 	  };
 	}
 
-	lightboxImage.$inject = ['$rootScope', '$document'];
+	lightboxImage.$inject = ['$rootScope', '$document', '$timeout'];
 
 	exports['default'] = lightboxImage;
 	module.exports = exports['default'];

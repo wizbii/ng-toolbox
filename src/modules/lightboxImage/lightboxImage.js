@@ -1,4 +1,4 @@
-function lightboxImage ($rootScope, $document) {
+function lightboxImage ($rootScope, $document, $timeout) {
   return {
     restrict: 'E',
     scope: true,
@@ -7,10 +7,12 @@ function lightboxImage ($rootScope, $document) {
       scope.active = false
 
       $rootScope.$on('lightbox:open', function (event, src) {
-        scope.src = src
-        scope.active = true
-        $document.find('body')
-          .css('overflow', 'hidden')
+        $timeout(function () {
+          scope.src = src
+          scope.active = true
+          $document.find('body')
+            .css('overflow', 'hidden')
+        })
       })
 
       $document.on('keyup', function (event) {
@@ -34,6 +36,6 @@ function lightboxImage ($rootScope, $document) {
   }
 }
 
-lightboxImage.$inject = ['$rootScope', '$document']
+lightboxImage.$inject = ['$rootScope', '$document', '$timeout']
 
 export default lightboxImage
