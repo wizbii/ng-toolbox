@@ -37,8 +37,8 @@ function lightboxImage ($rootScope, $document, $timeout) {
           <span class="icon-cross"></span>
         </span>
 
-        <div class="lightbox__inner" ng-click="$event.stopPropagation()">
-          <img ng-src="{{ src }}" alt="">
+        <div class="lightbox__inner">
+          <img ng-src="{{ src }}" ng-click="$event.stopPropagation()" alt="">
         </div>
       </div>
     `
