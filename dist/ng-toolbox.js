@@ -396,7 +396,7 @@
 	        scope.active = false;
 	      }
 	    },
-	    template: '\n      <div ng-if="active" ng-click="close()" class="lightbox">\n        <span class="lightbox__close-btn" ng-click="close()">\n          <span class="icon-cross"></span>\n        </span>\n\n        <div class="lightbox__inner" ng-click="$event.stopPropagation()">\n          <img ng-src="{{ src }}" alt="">\n        </div>\n      </div>\n    '
+	    template: '\n      <div ng-if="active" ng-click="close()" class="lightbox lightbox-image">\n        <span class="lightbox__close-btn" ng-click="close()">\n          <span class="icon-cross"></span>\n        </span>\n\n        <div class="lightbox__inner" ng-click="$event.stopPropagation()">\n          <img ng-src="{{ src }}" alt="">\n        </div>\n      </div>\n    '
 	  };
 	}
 
