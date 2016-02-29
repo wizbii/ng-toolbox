@@ -73,15 +73,15 @@
 
 	var _filtersTruncate2 = _interopRequireDefault(_filtersTruncate);
 
-	var _factoriesLoader = __webpack_require__(12);
+	var _factoriesLoader = __webpack_require__(13);
 
 	var _factoriesLoader2 = _interopRequireDefault(_factoriesLoader);
 
-	var _directivesPopup = __webpack_require__(13);
+	var _directivesPopup = __webpack_require__(14);
 
 	var _directivesPopup2 = _interopRequireDefault(_directivesPopup);
 
-	var _directivesFocusMe = __webpack_require__(14);
+	var _directivesFocusMe = __webpack_require__(15);
 
 	var _directivesFocusMe2 = _interopRequireDefault(_directivesFocusMe);
 
@@ -432,7 +432,7 @@
 
 /***/ },
 /* 11 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	/* global angular */
 
@@ -441,15 +441,24 @@
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _helpersHtmlJs = __webpack_require__(12);
+
+	var _helpersHtmlJs2 = _interopRequireDefault(_helpersHtmlJs);
+
 	function truncate() {
 	  return function (str, maxLength) {
 	    var ellipsis = arguments.length <= 2 || arguments[2] === undefined ? '...' : arguments[2];
 
 	    if (!angular.isString(str)) return str;
 
-	    str = str.replace(/<[^>]+>/g, '').trim();
+	    var _str = str;
+	    var map = _helpersHtmlJs2['default'].map(str);
+	    str = _helpersHtmlJs2['default'].strip(str).trim();
 
-	    if (str.length <= maxLength || !/ /g.test(str)) return str;
+	    if (str.length <= maxLength || !/ /g.test(str)) return _str;
 
 	    var partials = str.split(' ');
 	    str = '';
@@ -457,6 +466,8 @@
 	    while (partials.length && (str + ' ' + partials[0] + ellipsis).length <= maxLength) {
 	      str = (str + ' ' + partials.shift()).trim(); // trim in case str was empty
 	    }
+
+	    str = _helpersHtmlJs2['default'].inject(str, map);
 
 	    return str + ellipsis;
 	  };
@@ -467,6 +478,57 @@
 
 /***/ },
 /* 12 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+	exports['default'] = {
+	    strip: function strip(str) {
+	        return str.replace(/(<([^>]+)>)/gi, '');
+	    },
+
+	    map: function map(str) {
+	        var regexp = /<[^>]+>/gi;
+	        var tags = [];
+	        var openers = [];
+	        var result = undefined;
+	        var tag = undefined;
+
+	        while (result = regexp.exec(str)) {
+	            tag = {
+	                tagName: result[0],
+	                position: result.index
+	            };
+
+	            if (tag.tagName.charAt(1) === '/') tag.opener = openers.pop();else if (tag.tagName.charAt(tag.tagName.length - 2) !== '/') openers.push(tag);
+
+	            tags.push(tag);
+	        }
+
+	        return tags;
+	    },
+
+	    inject: function inject(str, map) {
+	        for (var i = 0, tag = undefined; i < map.length; i++) {
+	            tag = map[i];
+
+	            if (str.length > 0 && tag.position <= str.length) {
+	                str = str.substr(0, tag.position) + tag.tagName + str.substr(tag.position);
+	            } else if (tag.opener && tag.opener.position < str.length) {
+	                str += tag.tagName;
+	            }
+	        }
+
+	        return str;
+	    }
+	};
+	module.exports = exports['default'];
+
+/***/ },
+/* 13 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -509,7 +571,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports) {
 
 	/* global _ */
@@ -568,7 +630,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports) {
 
 	'use strict';
