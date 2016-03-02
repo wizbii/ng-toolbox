@@ -128,12 +128,11 @@
 	});
 	function dropdown($document) {
 	  return {
-	    scope: {
-	      dropdownAutoClose: '@'
-	    },
-	    controller: ['$scope', function ($scope) {
+	    controller: ['$scope', '$attrs', function ($scope, $attrs) {
 	      var self = this;
 	      self.isOpen = false;
+
+	      self.dropdownAutoClose = $attrs.dropdownAutoClose;
 
 	      // close the drop down when clicking outside of it or the toggle button
 	      $document.on('click', function (event) {
@@ -156,9 +155,17 @@
 	        if (container == null) return false;
 	        return container[0].contains(target);
 	      }
+
+	      $scope.dropdown = self;
 	    }],
 	    controllerAs: 'dropdown',
-	    bindToController: true
+	    scope: true,
+	    link: function link(scope, element, attrs, ctrl, transclude) {
+	      transclude(scope, function (clone) {
+	        element.append(clone);
+	      });
+	    },
+	    transclude: true
 	  };
 	}
 
@@ -468,7 +475,6 @@
 	    }
 
 	    str = _helpersHtmlJs2['default'].inject(str, map);
-
 	    return str + ellipsis;
 	  };
 	}
@@ -483,47 +489,47 @@
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
-	    value: true
+	  value: true
 	});
 	exports['default'] = {
-	    strip: function strip(str) {
-	        return str.replace(/(<([^>]+)>)/gi, '');
-	    },
+	  strip: function strip(str) {
+	    return str.replace(/(<([^>]+)>)/gi, '');
+	  },
 
-	    map: function map(str) {
-	        var regexp = /<[^>]+>/gi;
-	        var tags = [];
-	        var openers = [];
-	        var result = undefined;
-	        var tag = undefined;
+	  map: function map(str) {
+	    var regexp = /<[^>]+>/gi;
+	    var tags = [];
+	    var openers = [];
+	    var result = undefined;
+	    var tag = undefined;
 
-	        while (result = regexp.exec(str)) {
-	            tag = {
-	                tagName: result[0],
-	                position: result.index
-	            };
+	    while (result = regexp.exec(str)) {
+	      tag = {
+	        tagName: result[0],
+	        position: result.index
+	      };
 
-	            if (tag.tagName.charAt(1) === '/') tag.opener = openers.pop();else if (tag.tagName.charAt(tag.tagName.length - 2) !== '/') openers.push(tag);
+	      if (tag.tagName.charAt(1) === '/') tag.opener = openers.pop();else if (tag.tagName.charAt(tag.tagName.length - 2) !== '/') openers.push(tag);
 
-	            tags.push(tag);
-	        }
-
-	        return tags;
-	    },
-
-	    inject: function inject(str, map) {
-	        for (var i = 0, tag = undefined; i < map.length; i++) {
-	            tag = map[i];
-
-	            if (str.length > 0 && tag.position <= str.length) {
-	                str = str.substr(0, tag.position) + tag.tagName + str.substr(tag.position);
-	            } else if (tag.opener && tag.opener.position < str.length) {
-	                str += tag.tagName;
-	            }
-	        }
-
-	        return str;
+	      tags.push(tag);
 	    }
+
+	    return tags;
+	  },
+
+	  inject: function inject(str, map) {
+	    for (var i = 0, tag = undefined; i < map.length; i++) {
+	      tag = map[i];
+
+	      if (str.length > 0 && tag.position <= str.length) {
+	        str = str.substr(0, tag.position) + tag.tagName + str.substr(tag.position);
+	      } else if (tag.opener && tag.opener.position < str.length) {
+	        str += tag.tagName;
+	      }
+	    }
+
+	    return str;
+	  }
 	};
 	module.exports = exports['default'];
 

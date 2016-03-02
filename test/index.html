@@ -23,9 +23,12 @@
     </tabs>
 
     <button type="button" data-ng-click="demo.selectPane()">select "Selectable Pane"</button>
+    **{{ demo.focusInput }}**<br/>
 
     {{ 'Hey there! Wassup?'|truncate: 10 }}
     <div dropdown>
+      *\{{ dropdown.isOpen }}/*<br/>
+      **{{ demo.focusInput }}**<br/>
       <button dropdown-toggle>open dropdown</button>
       <div dropdown-menu>hello there, I am the dropdown menu</div>
     </div>
@@ -38,6 +41,7 @@
     <button ng-click="demo.setFocus()">focus input</button>
 
     <div dropdown dropdown-auto-close="true">
+      *\{{ dropdown.isOpen }}/*
       <button dropdown-toggle>open dropdown</button>
       <div ng-click="demo.alert()" style="cursor:pointer;" dropdown-menu>hello there, I am the dropdown menu</div>
     </div>

@@ -1,13 +1,13 @@
 function dropdown ($document) {
   return {
-    scope: {
-      dropdownAutoClose: '@'
-    },
     controller: [
       '$scope',
-      function ($scope) {
+      '$attrs',
+      function ($scope, $attrs) {
         var self = this
         self.isOpen = false
+
+        self.dropdownAutoClose = $attrs.dropdownAutoClose
 
         // close the drop down when clicking outside of it or the toggle button
         $document.on('click', function (event) {
@@ -31,10 +31,16 @@ function dropdown ($document) {
           if (container == null) return false
           return container[0].contains(target)
         }
+
+        $scope.dropdown = self
       }
     ],
     controllerAs: 'dropdown',
-    bindToController: true
+    scope: true,
+    link: function (scope, element, attrs, ctrl, transclude) {
+      transclude(scope, function (clone) { element.append(clone) })
+    },
+    transclude: true
   }
 }
 
