@@ -394,10 +394,14 @@
 	      });
 
 	      $document.on('keyup', function (event) {
-	        if (event.which === 27) scope.$apply(close);
+	        if (event.which === 27) $timeout(close);
 	      });
 
 	      function close() {
+	        if (scope.active === false) {
+	          return;
+	        }
+
 	        $document.find('body').css('overflow', 'auto');
 
 	        scope.active = false;
