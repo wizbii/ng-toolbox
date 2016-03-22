@@ -358,11 +358,8 @@
 
 	var _lightboxImageOpen2 = _interopRequireDefault(_lightboxImageOpen);
 
-	exports['default'] = angular.module('ng-toolbox-lightbox-image', []).directive({ lightboxImage: _lightboxImage2['default'], lightboxImageOpen: _lightboxImageOpen2['default'] }).run(['$document', '$compile', '$rootScope', function ($document, $compile, $rootScope) {
-	  var $scope = $rootScope.$new();
-	  var lightboxImage = $compile('<lightbox-image></lightbox-image>')($scope);
-
-	  $document.find('body').append(lightboxImage);
+	exports['default'] = angular.module('ng-toolbox-lightbox-image', []).directive({ lightboxImage: _lightboxImage2['default'], lightboxImageOpen: _lightboxImageOpen2['default'] }).run(['$rootElement', function ($rootElement) {
+	  $rootElement.append('<lightbox-image></lightbox-image>');
 	}]);
 	module.exports = exports['default'];
 
