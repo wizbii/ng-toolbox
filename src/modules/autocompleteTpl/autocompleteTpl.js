@@ -1,4 +1,5 @@
-/* global _ */
+import findIndex from 'lodash/findIndex'
+
 function autocompleteTpl ($document, $timeout, KeyboardManager) {
   return {
     controller: [
@@ -44,7 +45,7 @@ function autocompleteTpl ($document, $timeout, KeyboardManager) {
 
         if (items.length <= 0) return
 
-        const focusedIndex = _.findIndex(items, (item) => item === document.activeElement)
+        const focusedIndex = findIndex(items, (item) => item === document.activeElement)
         let indexToFocus
 
         const lowestIndex = ctrl.input ? -1 : 0

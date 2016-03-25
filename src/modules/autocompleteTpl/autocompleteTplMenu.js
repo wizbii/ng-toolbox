@@ -1,4 +1,6 @@
-/* global _, angular */
+import throttle from 'lodash/throttle'
+
+/* global angular */
 function autocompleteTplMenu ($window, $document) {
   return {
     require: '^autocompleteTpl',
@@ -61,7 +63,7 @@ function autocompleteTplMenu ($window, $document) {
         element.addClass('autocomplete__menu--fixed')
         updateFixedPosition()
 
-        const softUpdate = _.throttle(updateFixedPosition, 250)
+        const softUpdate = throttle(updateFixedPosition, 250)
 
         angular
           .element($window)
