@@ -58,6 +58,21 @@
     </div>
 
     <button lightbox-image-open="https://placehold.it/80x80">open lightbox</button>
+
+    <hr>
+
+    <div autocomplete-tpl>
+      <label>
+        Autocomplete :
+        <input autocomplete-tpl-input ng-model="demo.autocompleteInput">
+      </label>
+
+      <ul autocomplete-tpl-menu>
+        <li autocomplete-tpl-menu-item ng-repeat="item in demo.items">{{ item }}</li>
+      </ul>
+    </div>
+
+
   </div>
 </div>
 
@@ -73,6 +88,25 @@
       '$scope',
       function ($scope) {
         var vm = this;
+
+        vm.autocompleteInput = '';
+        vm.items = [];
+        vm.allItems = [
+          'hello',
+          'world',
+          'autocomplete',
+          'wizbii'
+        ];
+
+        $scope.$watch(function (oldValue, newValue) {
+          return vm.autocompleteInput;
+        }, autocomplete);
+
+        function autocomplete() {
+          vm.items = _.filter(vm.allItems, function (item) {
+            return item.match(vm.autocompleteInput);
+          })
+        }
 
         vm.focusInput = false;
         vm.setFocus = function () {
