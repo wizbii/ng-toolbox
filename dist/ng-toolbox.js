@@ -69,23 +69,29 @@
 
 	__webpack_require__(8);
 
-	var _filtersTruncate = __webpack_require__(11);
+	__webpack_require__(11);
+
+	var _filtersTruncate = __webpack_require__(16);
 
 	var _filtersTruncate2 = _interopRequireDefault(_filtersTruncate);
 
-	var _factoriesLoader = __webpack_require__(13);
+	var _factoriesLoader = __webpack_require__(18);
 
 	var _factoriesLoader2 = _interopRequireDefault(_factoriesLoader);
 
-	var _directivesPopup = __webpack_require__(14);
+	var _factoriesKeyboardManager = __webpack_require__(19);
+
+	var _factoriesKeyboardManager2 = _interopRequireDefault(_factoriesKeyboardManager);
+
+	var _directivesPopup = __webpack_require__(20);
 
 	var _directivesPopup2 = _interopRequireDefault(_directivesPopup);
 
-	var _directivesFocusMe = __webpack_require__(15);
+	var _directivesFocusMe = __webpack_require__(21);
 
 	var _directivesFocusMe2 = _interopRequireDefault(_directivesFocusMe);
 
-	exports['default'] = angular.module('ng-toolbox', ['ng-toolbox-dropdown', 'ng-toolbox-tabs', 'ng-toolbox-lightbox-image']).filter({ truncate: _filtersTruncate2['default'] }).factory({ Loader: _factoriesLoader2['default'] }).directive({ popup: _directivesPopup2['default'], focusMe: _directivesFocusMe2['default'] });
+	exports['default'] = angular.module('ng-toolbox', ['ng-toolbox-dropdown', 'ng-toolbox-tabs', 'ng-toolbox-lightbox-image', 'ng-toolbox-autocomplete']).filter({ truncate: _filtersTruncate2['default'] }).factory({ Loader: _factoriesLoader2['default'], KeyboardManager: _factoriesKeyboardManager2['default'] }).directive({ popup: _directivesPopup2['default'], focusMe: _directivesFocusMe2['default'] });
 	module.exports = exports['default'];
 
 /***/ },
@@ -452,7 +458,283 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _helpersHtmlJs = __webpack_require__(12);
+	var _autocompleteTpl = __webpack_require__(12);
+
+	var _autocompleteTpl2 = _interopRequireDefault(_autocompleteTpl);
+
+	var _autocompleteTplInput = __webpack_require__(13);
+
+	var _autocompleteTplInput2 = _interopRequireDefault(_autocompleteTplInput);
+
+	var _autocompleteTplMenu = __webpack_require__(14);
+
+	var _autocompleteTplMenu2 = _interopRequireDefault(_autocompleteTplMenu);
+
+	var _autocompleteTplMenuItem = __webpack_require__(15);
+
+	var _autocompleteTplMenuItem2 = _interopRequireDefault(_autocompleteTplMenuItem);
+
+	exports['default'] = angular.module('ng-toolbox-autocomplete', []).directive({ autocompleteTpl: _autocompleteTpl2['default'], autocompleteTplInput: _autocompleteTplInput2['default'], autocompleteTplMenu: _autocompleteTplMenu2['default'], autocompleteTplMenuItem: _autocompleteTplMenuItem2['default'] });
+	module.exports = exports['default'];
+
+/***/ },
+/* 12 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	function autocompleteTpl($document, $timeout, KeyboardManager) {
+	  return {
+	    controller: ['$scope', function ($scope) {
+	      var vm = this;
+	      vm.isOpen = false;
+
+	      $document.on('click', function (event) {
+	        $timeout(function () {
+	          if (contains(vm.menu, event.target) || contains([vm.input], event.target)) return;
+
+	          vm.isOpen = false;
+	        });
+	      });
+
+	      $scope.$watch(function () {
+	        return vm.isOpen;
+	      }, function (isOpen) {
+	        if (!vm.menu) return;
+
+	        if (isOpen) {
+	          vm.showMenu();
+	        } else {
+	          vm.hideMenu();
+	          vm.input.blur();
+	        }
+	      });
+
+	      function contains(container, target) {
+	        if (container == null) return false;
+	        return container[0].contains(target);
+	      }
+	    }],
+	    controllerAs: 'autocompleteTpl',
+	    bindToController: true,
+	    link: function link(scope, element, attrs, ctrl) {
+	      function updateFocus(e, direction) {
+	        var items = element.find('[autocomplete-tpl-menu-item]');
+
+	        if (items.length <= 0) return;
+
+	        var focusedIndex = _.findIndex(items, function (item) {
+	          return item === document.activeElement;
+	        });
+	        var indexToFocus = undefined;
+
+	        var lowestIndex = ctrl.input ? -1 : 0;
+	        var greatestIndex = items.length - 1;
+
+	        if (direction === 'up') {
+	          indexToFocus = focusedIndex > lowestIndex ? focusedIndex - 1 : greatestIndex;
+	        } else {
+	          indexToFocus = focusedIndex < greatestIndex ? focusedIndex + 1 : lowestIndex;
+	        }
+
+	        if (indexToFocus === -1) ctrl.input.focus();else items.get(indexToFocus).focus();
+
+	        e.preventDefault();
+	      }
+
+	      KeyboardManager(element, {
+	        up: function up(e) {
+	          return updateFocus(e, 'up');
+	        },
+	        down: function down(e) {
+	          return updateFocus(e, 'down');
+	        },
+	        esc: function esc(e) {
+	          if (ctrl.isOpen) {
+	            ctrl.isOpen = false;
+	            e.preventDefault();
+	          }
+	        }
+	      });
+	    }
+	  };
+	}
+
+	autocompleteTpl.$inject = ['$document', '$timeout', 'KeyboardManager'];
+
+	exports['default'] = autocompleteTpl;
+	module.exports = exports['default'];
+
+/***/ },
+/* 13 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	function autocompleteTplInput($timeout) {
+	  return {
+	    require: '^autocompleteTpl',
+	    link: function link(scope, element, attrs, ctrl) {
+	      ctrl.input = element[0];
+
+	      element.on('focus', function () {
+	        $timeout(function () {
+	          ctrl.isOpen = true;
+	        });
+	      });
+	    }
+	  };
+	}
+
+	autocompleteTplInput.$inject = ['$timeout'];
+
+	exports['default'] = autocompleteTplInput;
+	module.exports = exports['default'];
+
+/***/ },
+/* 14 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	function autocompleteTplMenu($window, $document) {
+	  return {
+	    require: '^autocompleteTpl',
+	    link: function link(scope, element, attrs, ctrl) {
+	      /*----------------------------------------*\
+	       props
+	       \*----------------------------------------*/
+
+	      var isFixed = attrs.autocompleteTplMenu === 'fixed';
+
+	      ctrl.menu = element;
+	      ctrl.showMenu = showMenu;
+	      ctrl.hideMenu = hideMenu;
+
+	      /*----------------------------------------*\
+	       functions
+	       \*----------------------------------------*/
+
+	      function showMenu() {
+	        element.removeClass('ng-hide');
+	        if (isFixed) updateFixedPosition();
+	      }
+
+	      function hideMenu() {
+	        element.addClass('ng-hide');
+	      }
+
+	      function updateFixedPosition() {
+	        if (ctrl.input == null) return;
+	        if (!isVisible(element[0])) return;
+
+	        var targetPosition = ctrl.input[0].getBoundingClientRect();
+	        var viewportHeight = $document[0].documentElement.clientHeight;
+	        var topMargin = 5;
+	        var bottomMargin = 20;
+
+	        element.css({
+	          top: targetPosition.bottom + topMargin,
+	          left: targetPosition.left,
+	          maxHeight: viewportHeight - targetPosition.bottom - bottomMargin,
+	          width: targetPosition.right - targetPosition.left
+	        });
+	      }
+
+	      function isVisible(_x) {
+	        var _again = true;
+
+	        _function: while (_again) {
+	          var e = _x;
+	          _again = false;
+
+	          var style = $window.getComputedStyle(e);
+	          var display = style.getPropertyValue('display');
+
+	          if (display === 'none') return false;
+
+	          var parent = e.parentElement;
+	          if (parent && parent.nodeType === 1) {
+	            _x = parent;
+	            _again = true;
+	            style = display = parent = undefined;
+	            continue _function;
+	          } else {
+	            return true;
+	          }
+	        }
+	      }
+
+	      /*----------------------------------------*\
+	       init
+	       \*----------------------------------------*/
+
+	      if (isFixed) {
+	        element.addClass('autocomplete__menu--fixed');
+	        updateFixedPosition();
+
+	        var softUpdate = _.throttle(updateFixedPosition, 250);
+
+	        angular.element($window).on('resize', softUpdate).on('scroll', softUpdate);
+	      } else {
+	        element.addClass('autocomplete__menu--absolute');
+	      }
+	    }
+	  };
+	}
+
+	autocompleteTplMenu.$inject = ['$window', '$document'];
+
+	exports['default'] = autocompleteTplMenu;
+	module.exports = exports['default'];
+
+/***/ },
+/* 15 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	function autocompleteTplMenuItem() {
+	  return {
+	    require: '^autocompleteTpl',
+	    link: function link(scope, element) {
+	      element.on('mousemove', function () {
+	        this.focus();
+	      });
+	    }
+	  };
+	}
+
+	exports['default'] = autocompleteTplMenuItem;
+	module.exports = exports['default'];
+
+/***/ },
+/* 16 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* global angular */
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _helpersHtmlJs = __webpack_require__(17);
 
 	var _helpersHtmlJs2 = _interopRequireDefault(_helpersHtmlJs);
 
@@ -484,7 +766,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 12 */
+/* 17 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -535,7 +817,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 13 */
+/* 18 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -578,7 +860,35 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 14 */
+/* 19 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	function KeyboardManager() {
+	  return function (element, handlers) {
+	    var mapping = { down: 40, up: 38, enter: 13, tab: 9, esc: 27 };
+	    handlers = _.mapKeys(handlers, function (handler, keyName) {
+	      return mapping[keyName];
+	    });
+
+	    element[0].addEventListener('keydown', function (e) {
+	      var handler = handlers[e.keyCode];
+	      if (handler == null) return;
+
+	      handler.apply(this, arguments);
+	    }, true);
+	  };
+	}
+
+	exports['default'] = KeyboardManager;
+	module.exports = exports['default'];
+
+/***/ },
+/* 20 */
 /***/ function(module, exports) {
 
 	/* global _ */
@@ -637,7 +947,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 15 */
+/* 21 */
 /***/ function(module, exports) {
 
 	'use strict';
