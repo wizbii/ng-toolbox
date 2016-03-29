@@ -481,6 +481,8 @@
 /* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* global angular */
+
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
@@ -3895,7 +3897,7 @@
 	        if (ctrl.input == null) return;
 	        if (!isVisible(element[0])) return;
 
-	        var targetPosition = ctrl.input[0].getBoundingClientRect();
+	        var targetPosition = ctrl.input.getBoundingClientRect();
 	        var viewportHeight = $document[0].documentElement.clientHeight;
 	        var topMargin = 5;
 	        var bottomMargin = 20;

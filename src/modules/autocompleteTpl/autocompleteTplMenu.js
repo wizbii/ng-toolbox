@@ -32,7 +32,7 @@ function autocompleteTplMenu ($window, $document) {
         if (ctrl.input == null) return
         if (!isVisible(element[0])) return
 
-        const targetPosition = ctrl.input[0].getBoundingClientRect()
+        const targetPosition = ctrl.input.getBoundingClientRect()
         const viewportHeight = $document[0].documentElement.clientHeight
         const topMargin = 5
         const bottomMargin = 20
