@@ -5,9 +5,23 @@ function dropdown ($document) {
       '$attrs',
       function ($scope, $attrs) {
         var self = this
-        self.isOpen = false
 
+        self.isOpen = false
         self.dropdownAutoClose = $attrs.dropdownAutoClose
+        self.addMenu = addMenu
+
+        function addMenu (element) {
+          self.dropdownMenu = element
+          updateMenuVisiblity()
+        }
+
+        function updateMenuVisiblity () {
+          if (self.isOpen) {
+            self.dropdownMenu.removeClass('ng-hide')
+          } else {
+            self.dropdownMenu.addClass('ng-hide')
+          }
+        }
 
         // close the drop down when clicking outside of it or the toggle button
         $document.on('click', function (event) {
@@ -18,13 +32,9 @@ function dropdown ($document) {
           $scope.$apply()
         })
 
-        $scope.$watch(function () {
-          return self.isOpen
-        }, function (isOpen, wasOpen) {
+        $scope.$watch(() => self.isOpen, function () {
           if (!self.dropdownMenu) return
-
-          if (isOpen) self.dropdownMenu.removeClass('ng-hide')
-          else self.dropdownMenu.addClass('ng-hide')
+          updateMenuVisiblity()
         })
 
         function contains (container, target) {
