@@ -4,56 +4,69 @@ function dropdown ($document) {
       '$scope',
       '$attrs',
       function ($scope, $attrs) {
-        var self = this
+        const vm = $scope.dropdown = this
 
-        self.isOpen = false
-        self.dropdownAutoClose = $attrs.dropdownAutoClose
-        self.addMenu = addMenu
+        vm.isOpen = false
+        vm.dropdownAutoClose = $attrs.dropdownAutoClose
+        vm.addMenu = addMenu
 
         function addMenu (element) {
-          self.dropdownMenu = element
+          vm.dropdownMenu = element
           updateMenuVisiblity()
         }
 
         function updateMenuVisiblity () {
-          if (self.isOpen) {
-            self.dropdownMenu.removeClass('ng-hide')
+          if (vm.isOpen) {
+            vm.dropdownMenu.removeClass('ng-hide')
           } else {
-            self.dropdownMenu.addClass('ng-hide')
+            vm.dropdownMenu.addClass('ng-hide')
           }
         }
 
-        // close the drop down when clicking outside of it or the toggle button
-        $document.on('click', function (event) {
-          if (self.dropdownAutoClose !== 'true' && contains(self.dropdownMenu, event.target)) return
-          if (contains(self.dropdownToggle, event.target)) return
+        function contains (container, target) {
+          return (
+            container && container[0].contains(target)
+          )
+        }
 
-          self.isOpen = false
+        $document.on('click', function (event) {
+          if (vm.dropdownAutoClose !== 'true' && contains(vm.dropdownMenu, event.target)) {
+            return
+          }
+
+          if (contains(vm.dropdownToggle, event.target)) {
+            return
+          }
+
+          vm.isOpen = false
           $scope.$apply()
         })
 
-        $scope.$watch(() => self.isOpen, function () {
-          if (!self.dropdownMenu) return
-          updateMenuVisiblity()
-        })
+        $scope.$watch(
+          () => vm.isOpen,
+          () => {
+            if (!vm.dropdownMenu) {
+              return
+            }
 
-        function contains (container, target) {
-          if (container == null) return false
-          return container[0].contains(target)
-        }
-
-        $scope.dropdown = self
+            updateMenuVisiblity()
+          }
+        )
       }
     ],
     controllerAs: 'dropdown',
     scope: true,
-    link: function (scope, element, attrs, ctrl, transclude) {
-      transclude(scope, function (clone) { element.append(clone) })
+    link (scope, element, attrs, ctrl, transclude) {
+      transclude(scope, (clone) => {
+        element.append(clone)
+      })
     },
     transclude: true
   }
 }
 
-dropdown.$inject = ['$document']
+dropdown.$inject = [
+  '$document'
+]
 
 export default dropdown
