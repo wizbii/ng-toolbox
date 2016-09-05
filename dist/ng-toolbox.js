@@ -130,50 +130,57 @@
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
-	function dropdown($document) {
+	function dropdown() {
 	  return {
-	    controller: ['$scope', '$attrs', function ($scope, $attrs) {
-	      var self = this;
+	    controller: ['$scope', '$element', '$attrs', function ($scope, $element, $attrs) {
+	      var vm = $scope.dropdown = this;
 
-	      self.isOpen = false;
-	      self.dropdownAutoClose = $attrs.dropdownAutoClose;
-	      self.addMenu = addMenu;
+	      vm.isOpen = false;
+	      vm.dropdownAutoClose = $attrs.dropdownAutoClose;
+	      vm.addMenu = addMenu;
 
 	      function addMenu(element) {
-	        self.dropdownMenu = element;
+	        vm.dropdownMenu = element;
 	        updateMenuVisiblity();
 	      }
 
 	      function updateMenuVisiblity() {
-	        if (self.isOpen) {
-	          self.dropdownMenu.removeClass('ng-hide');
+	        if (vm.isOpen) {
+	          vm.dropdownMenu.removeClass('ng-hide');
 	        } else {
-	          self.dropdownMenu.addClass('ng-hide');
+	          vm.dropdownMenu.addClass('ng-hide');
 	        }
 	      }
 
-	      // close the drop down when clicking outside of it or the toggle button
-	      $document.on('click', function (event) {
-	        if (self.dropdownAutoClose !== 'true' && contains(self.dropdownMenu, event.target)) return;
-	        if (contains(self.dropdownToggle, event.target)) return;
+	      function contains(container, target) {
+	        return container && container[0].contains(target);
+	      }
 
-	        self.isOpen = false;
-	        $scope.$apply();
+	      $element.on('click', function (event) {
+	        // by default the dropdown shouldn't auto close
+	        // so the only way to enable it is to explicitly pass "true"
+	        // any other value is considered false
+	        if (vm.dropdownAutoClose !== 'true' && contains(vm.dropdownMenu, event.target)) {
+	          return;
+	        }
+
+	        if (contains(vm.dropdownToggle, event.target)) {
+	          return;
+	        }
+
+	        vm.isOpen = false;
+	        $scope.$broadcast();
 	      });
 
 	      $scope.$watch(function () {
-	        return self.isOpen;
+	        return vm.isOpen;
 	      }, function () {
-	        if (!self.dropdownMenu) return;
+	        if (!vm.dropdownMenu) {
+	          return;
+	        }
+
 	        updateMenuVisiblity();
 	      });
-
-	      function contains(container, target) {
-	        if (container == null) return false;
-	        return container[0].contains(target);
-	      }
-
-	      $scope.dropdown = self;
 	    }],
 	    controllerAs: 'dropdown',
 	    scope: true,
@@ -186,7 +193,7 @@
 	  };
 	}
 
-	dropdown.$inject = ['$document'];
+	dropdown.$inject = [];
 
 	exports['default'] = dropdown;
 	module.exports = exports['default'];

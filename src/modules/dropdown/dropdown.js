@@ -1,9 +1,10 @@
-function dropdown ($document) {
+function dropdown () {
   return {
     controller: [
       '$scope',
+      '$element',
       '$attrs',
-      function ($scope, $attrs) {
+      function ($scope, $element, $attrs) {
         const vm = $scope.dropdown = this
 
         vm.isOpen = false
@@ -29,7 +30,10 @@ function dropdown ($document) {
           )
         }
 
-        $document.on('click', function (event) {
+        $element.on('click', function (event) {
+          // by default the dropdown shouldn't auto close
+          // so the only way to enable it is to explicitly pass "true"
+          // any other value is considered false
           if (vm.dropdownAutoClose !== 'true' && contains(vm.dropdownMenu, event.target)) {
             return
           }
@@ -39,7 +43,7 @@ function dropdown ($document) {
           }
 
           vm.isOpen = false
-          $scope.$apply()
+          $scope.$broadcast()
         })
 
         $scope.$watch(
@@ -66,7 +70,6 @@ function dropdown ($document) {
 }
 
 dropdown.$inject = [
-  '$document'
 ]
 
 export default dropdown
