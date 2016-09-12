@@ -32,6 +32,13 @@ function dropdown () {
         }
 
         function onClick (event) {
+          // this handler sets isOpen to false when clicking
+          // outside the drop down but there's no point going any further
+          // if it's already false
+          if (vm.isOpen === false) {
+            return
+          }
+
           // by default the dropdown shouldn't auto close
           // so the only way to enable it is to explicitly pass "true"
           // any other value is considered false
