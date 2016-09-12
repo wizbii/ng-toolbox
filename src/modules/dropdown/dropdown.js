@@ -4,7 +4,8 @@ function dropdown () {
       '$scope',
       '$element',
       '$attrs',
-      function ($scope, $element, $attrs) {
+      '$document',
+      function ($scope, $element, $attrs, $document) {
         const vm = $scope.dropdown = this
 
         vm.isOpen = false
@@ -30,7 +31,7 @@ function dropdown () {
           )
         }
 
-        $element.on('click', function (event) {
+        function onClick (event) {
           // by default the dropdown shouldn't auto close
           // so the only way to enable it is to explicitly pass "true"
           // any other value is considered false
@@ -44,7 +45,10 @@ function dropdown () {
 
           vm.isOpen = false
           $scope.$broadcast()
-        })
+        }
+
+        $document.on('click', onClick)
+        $scope.$on('$destroy', () => $document.off('click', onClick))
 
         $scope.$watch(
           () => vm.isOpen,

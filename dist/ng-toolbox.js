@@ -132,7 +132,7 @@
 	});
 	function dropdown() {
 	  return {
-	    controller: ['$scope', '$element', '$attrs', function ($scope, $element, $attrs) {
+	    controller: ['$scope', '$element', '$attrs', '$document', function ($scope, $element, $attrs, $document) {
 	      var vm = $scope.dropdown = this;
 
 	      vm.isOpen = false;
@@ -156,7 +156,7 @@
 	        return container && container[0].contains(target);
 	      }
 
-	      $element.on('click', function (event) {
+	      function onClick(event) {
 	        // by default the dropdown shouldn't auto close
 	        // so the only way to enable it is to explicitly pass "true"
 	        // any other value is considered false
@@ -170,6 +170,11 @@
 
 	        vm.isOpen = false;
 	        $scope.$broadcast();
+	      }
+
+	      $document.on('click', onClick);
+	      $scope.$on('$destroy', function () {
+	        return $document.off('click', onClick);
 	      });
 
 	      $scope.$watch(function () {
