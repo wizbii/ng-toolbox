@@ -18,8 +18,13 @@ function lightboxImage ($rootScope, $document, $timeout) {
         })
       })
 
-      $document.on('keyup', function (event) {
-        if (event.which === 27) $timeout(close)
+      $document.on('keydown', function (event) {
+        if (!scope.active) return
+
+        if (event.which === 27) {
+          $timeout(close)
+          event.preventDefault()
+        }
       })
 
       function close () {
