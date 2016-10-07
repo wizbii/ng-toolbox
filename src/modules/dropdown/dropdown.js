@@ -51,7 +51,7 @@ function dropdown () {
           }
 
           vm.isOpen = false
-          $scope.$broadcast()
+          $scope.$apply()
         }
 
         $document.on('click', onClick)
