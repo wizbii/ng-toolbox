@@ -1,23 +1,16 @@
+/* global angular */
+
 import throttle from 'lodash/throttle'
 
-/* global angular */
 function autocompleteTplMenu ($window, $document) {
   return {
     require: '^autocompleteTpl',
     link (scope, element, attrs, ctrl) {
-      /* ---------------------------------------- *\
-       props
-      \* ---------------------------------------- */
-
       const isFixed = attrs.autocompleteTplMenu === 'fixed'
 
       ctrl.menu = element
       ctrl.showMenu = showMenu
       ctrl.hideMenu = hideMenu
-
-      /* ---------------------------------------- *\
-       functions
-      \* ---------------------------------------- */
 
       function showMenu () {
         element.removeClass('ng-hide')
@@ -55,10 +48,6 @@ function autocompleteTplMenu ($window, $document) {
         return parent && parent.nodeType === 1 ? isVisible(parent) : true
       }
 
-      /* ---------------------------------------- *\
-       init
-      \* ---------------------------------------- */
-
       if (isFixed) {
         element.addClass('autocomplete__menu--fixed')
         updateFixedPosition()
@@ -76,6 +65,9 @@ function autocompleteTplMenu ($window, $document) {
   }
 }
 
-autocompleteTplMenu.$inject = ['$window', '$document']
+autocompleteTplMenu.$inject = [
+  '$window',
+  '$document'
+]
 
 export default autocompleteTplMenu
