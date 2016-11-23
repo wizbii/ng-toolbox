@@ -27,15 +27,28 @@ function autocompleteTplMenu ($window, $document) {
 
         const targetPosition = ctrl.input.getBoundingClientRect()
         const viewportHeight = $document[0].documentElement.clientHeight
-        const topMargin = 5
-        const bottomMargin = 20
+        const margin = 10
+        const smallMargin = margin / 2
 
-        element.css({
-          top: targetPosition.bottom + topMargin,
-          left: targetPosition.left,
-          maxHeight: viewportHeight - targetPosition.bottom - bottomMargin,
-          width: targetPosition.right - targetPosition.left
-        })
+        const width = targetPosition.right - targetPosition.left
+        const css = {
+          top: targetPosition.bottom + smallMargin,
+          maxHeight: viewportHeight - targetPosition.bottom - margin
+        }
+
+        if (isFixed && width < 300) {
+          // on small screen, make the autocomplete span to full width
+          // note: only apply this rule to fixed autocompletes
+          //       as it would actually reduce the size of absolute element
+          //       since they are positioned according to their relative parent
+          css.left = margin
+          css.width = `calc(100% - ${margin * 2}px)`
+        } else {
+          css.left = targetPosition.left
+          css.width = width
+        }
+
+        element.css(css)
       }
 
       function isVisible (e) {

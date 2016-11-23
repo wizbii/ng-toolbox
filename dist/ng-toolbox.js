@@ -4091,6 +4091,8 @@
 /* 114 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* global angular */
+
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
@@ -4103,24 +4105,15 @@
 
 	var _lodashThrottle2 = _interopRequireDefault(_lodashThrottle);
 
-	/* global angular */
 	function autocompleteTplMenu($window, $document) {
 	  return {
 	    require: '^autocompleteTpl',
 	    link: function link(scope, element, attrs, ctrl) {
-	      /* ---------------------------------------- *\
-	       props
-	      \* ---------------------------------------- */
-
 	      var isFixed = attrs.autocompleteTplMenu === 'fixed';
 
 	      ctrl.menu = element;
 	      ctrl.showMenu = showMenu;
 	      ctrl.hideMenu = hideMenu;
-
-	      /* ---------------------------------------- *\
-	       functions
-	      \* ---------------------------------------- */
 
 	      function showMenu() {
 	        element.removeClass('ng-hide');
@@ -4137,15 +4130,28 @@
 
 	        var targetPosition = ctrl.input.getBoundingClientRect();
 	        var viewportHeight = $document[0].documentElement.clientHeight;
-	        var topMargin = 5;
-	        var bottomMargin = 20;
+	        var margin = 10;
+	        var smallMargin = margin / 2;
 
-	        element.css({
-	          top: targetPosition.bottom + topMargin,
-	          left: targetPosition.left,
-	          maxHeight: viewportHeight - targetPosition.bottom - bottomMargin,
-	          width: targetPosition.right - targetPosition.left
-	        });
+	        var width = targetPosition.right - targetPosition.left;
+	        var css = {
+	          top: targetPosition.bottom + smallMargin,
+	          maxHeight: viewportHeight - targetPosition.bottom - margin
+	        };
+
+	        if (isFixed && width < 300) {
+	          // on small screen, make the autocomplete span to full width
+	          // note: only apply this rule to fixed autocompletes
+	          //       as it would actually reduce the size of absolute element
+	          //       since they are positioned according to their relative parent
+	          css.left = margin;
+	          css.width = 'calc(100% - ' + margin * 2 + 'px)';
+	        } else {
+	          css.left = targetPosition.left;
+	          css.width = width;
+	        }
+
+	        element.css(css);
 	      }
 
 	      function isVisible(_x) {
@@ -4171,10 +4177,6 @@
 	          }
 	        }
 	      }
-
-	      /* ---------------------------------------- *\
-	       init
-	      \* ---------------------------------------- */
 
 	      if (isFixed) {
 	        element.addClass('autocomplete__menu--fixed');
