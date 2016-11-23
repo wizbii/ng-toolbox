@@ -62,7 +62,10 @@ function autocompleteTplMenu ($window, $document) {
       }
 
       if (isFixed) {
-        element.addClass('autocomplete__menu--fixed')
+        element.css({
+          position: 'fixed'
+        })
+
         updateFixedPosition()
 
         const softUpdate = throttle(updateFixedPosition, 250)
@@ -72,7 +75,15 @@ function autocompleteTplMenu ($window, $document) {
           .on('resize', softUpdate)
           .on('scroll', softUpdate)
       } else {
-        element.addClass('autocomplete__menu--absolute')
+        element.css({
+          position: 'absolute',
+          top: '100%',
+          left: 0,
+          width: '100%',
+          marginTop: 5,
+          maxHeight: 220,
+          overflowY: 'auto'
+        })
       }
     }
   }

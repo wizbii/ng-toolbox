@@ -4179,14 +4179,25 @@
 	      }
 
 	      if (isFixed) {
-	        element.addClass('autocomplete__menu--fixed');
+	        element.css({
+	          position: 'fixed'
+	        });
+
 	        updateFixedPosition();
 
 	        var softUpdate = (0, _lodashThrottle2['default'])(updateFixedPosition, 250);
 
 	        angular.element($window).on('resize', softUpdate).on('scroll', softUpdate);
 	      } else {
-	        element.addClass('autocomplete__menu--absolute');
+	        element.css({
+	          position: 'absolute',
+	          top: '100%',
+	          left: 0,
+	          width: '100%',
+	          marginTop: 5,
+	          maxHeight: 220,
+	          overflowY: 'auto'
+	        });
 	      }
 	    }
 	  };
