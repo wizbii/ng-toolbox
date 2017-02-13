@@ -5,7 +5,7 @@ function dropdownToggle () {
       ctrl.dropdownToggle = element
 
       element.on('click', function () {
-        ctrl.isOpen = !ctrl.isOpen
+        ctrl.toggleOpen()
         scope.$apply()
       })
     }

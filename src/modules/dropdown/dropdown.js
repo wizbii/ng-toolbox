@@ -5,12 +5,14 @@ function dropdown () {
       '$element',
       '$attrs',
       '$document',
-      function ($scope, $element, $attrs, $document) {
+      '$parse',
+      function ($scope, $element, $attrs, $document, $parse) {
         const vm = $scope.dropdown = this
 
         vm.isOpen = false
         vm.dropdownAutoClose = $attrs.dropdownAutoClose
         vm.addMenu = addMenu
+        vm.toggleOpen = toggleOpen
 
         function addMenu (element) {
           vm.dropdownMenu = element
@@ -23,6 +25,18 @@ function dropdown () {
           } else {
             vm.dropdownMenu.addClass('ng-hide')
           }
+        }
+
+        function toggleOpen () {
+          vm.isOpen = !vm.isOpen
+
+          const callback =
+            $attrs.onDropdownToggleOpen
+              ? $parse($attrs.onDropdownToggleOpen)
+              : () => {}
+
+          // Note: feel free to inject locals if the need arises
+          callback($scope)
         }
 
         function contains (container, target) {
