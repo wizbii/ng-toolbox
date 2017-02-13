@@ -132,12 +132,13 @@
 	});
 	function dropdown() {
 	  return {
-	    controller: ['$scope', '$element', '$attrs', '$document', function ($scope, $element, $attrs, $document) {
+	    controller: ['$scope', '$element', '$attrs', '$document', '$parse', function ($scope, $element, $attrs, $document, $parse) {
 	      var vm = $scope.dropdown = this;
 
 	      vm.isOpen = false;
 	      vm.dropdownAutoClose = $attrs.dropdownAutoClose;
 	      vm.addMenu = addMenu;
+	      vm.toggleOpen = toggleOpen;
 
 	      function addMenu(element) {
 	        vm.dropdownMenu = element;
@@ -150,6 +151,15 @@
 	        } else {
 	          vm.dropdownMenu.addClass('ng-hide');
 	        }
+	      }
+
+	      function toggleOpen() {
+	        vm.isOpen = !vm.isOpen;
+
+	        var callback = $attrs.onDropdownToggleOpen ? $parse($attrs.onDropdownToggleOpen) : function () {};
+
+	        // Note: feel free to inject locals if the need arises
+	        callback($scope);
 	      }
 
 	      function contains(container, target) {
@@ -226,7 +236,7 @@
 	      ctrl.dropdownToggle = element;
 
 	      element.on('click', function () {
-	        ctrl.isOpen = !ctrl.isOpen;
+	        ctrl.toggleOpen();
 	        scope.$apply();
 	      });
 	    }
