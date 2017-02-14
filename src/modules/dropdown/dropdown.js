@@ -35,8 +35,9 @@ function dropdown () {
               ? $parse($attrs.onDropdownToggleOpen)
               : () => {}
 
-          // Note: feel free to inject locals if the need arises
-          callback($scope)
+          callback($scope, {
+            $isOpen: vm.isOpen
+          })
         }
 
         function contains (container, target) {
