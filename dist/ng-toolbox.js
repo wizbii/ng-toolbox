@@ -158,8 +158,9 @@
 
 	        var callback = $attrs.onDropdownToggleOpen ? $parse($attrs.onDropdownToggleOpen) : function () {};
 
-	        // Note: feel free to inject locals if the need arises
-	        callback($scope);
+	        callback($scope, {
+	          $isOpen: vm.isOpen
+	        });
 	      }
 
 	      function contains(container, target) {
