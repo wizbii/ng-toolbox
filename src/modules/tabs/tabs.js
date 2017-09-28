@@ -24,7 +24,7 @@ function tabs () {
         })
 
         function addPane (pane) {
-          const hash = (window.location.hash || '').substr(1)
+          const hash = (window.location.hash || '').substr(1).replace(/\?.*$/, '')
           const alias = getAlias(pane)
           const selected = vm.panes.length === 0 || hash === alias
 
