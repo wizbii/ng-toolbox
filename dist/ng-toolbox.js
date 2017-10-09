@@ -326,7 +326,7 @@
 	      });
 
 	      function addPane(pane) {
-	        var hash = (window.location.hash || '').substr(1).replace(/\?.*$/, '');
+	        var hash = (window.location.hash || '').substr(1).replace(/(\?|%3F).*$/, '');
 	        var alias = getAlias(pane);
 	        var selected = vm.panes.length === 0 || hash === alias;
 
